@@ -705,21 +705,29 @@ const App = {
     <div class="card"><h3>What you are looking at</h3>
       <p>The demo walks a realistic matter end to end: a four-vehicle highway collision has left three
       insurance carriers holding paid claims, and they must agree on who owes whom. Each carrier privately
-      commits the most it will pay and the least it will accept. The instrument - never any person -
-      checks whether those private positions overlap, releases only <i>"agreement is possible / not yet"</i>
-      signals round by round, and when everyone's constraints can be satisfied simultaneously, computes the
-      settlement by a split rule the parties chose before anything was disclosed. A retired judge presides
-      throughout: structuring the dispute, commissioning narrow AI fact-checks, privately interrogating each
-      side's case file, and standing ready to decide if negotiation fails. The parties themselves are the
-      only ones who can sign the final accord.</p>
-      <p class="kv"><b>In the full protocol specification</b>, the same sealed mechanism extends beyond dollars:
-      each party classifies every term in an adopted dictionary as a deal-maker (<i>must have</i>), a
-      walk-away (<i>must not have</i>), or a preference worth trading (<i>like to have</i> /
-      <i>like to not have</i>). Hard constraints filter feasibility inside the enclave; preferences pick among
-      stable packages using deferred-acceptance rules the parties adopt by hash. Custom terms pass a
-      legality screen before they can enter the package space. <b>This running demo implements bounds,
-      four-class term sheets, and package-feasibility signals</b>; full Gale-Shapley package selection
-      and the custom-term legality screen (S6) are specified for the compiled build.</p>
+      commits a <b>sealed intake package</b> - not a single number, but the full private constraint surface:
+      numeric reservation posture per obligation (maximum pay / minimum accept), a <b>four-class term sheet</b>
+      over every adopted dictionary term (<i>must have</i>, <i>must not have</i>, <i>like to have</i>,
+      <i>prefer not</i>), and any custom-term proposals screened against the protocol's legality table.
+      The instrument - never any person - checks whether those private constraints can be jointly satisfied,
+      releases only <i>"agreement is possible / not yet"</i> signals round by round, and when a feasible
+      package exists, computes settlement by the split rule the parties chose before anything was disclosed.
+      A retired judge presides throughout: structuring the dispute, commissioning narrow AI fact-checks,
+      privately interrogating each side's case file, and standing ready to decide if negotiation fails.
+      The parties themselves are the only ones who can sign the final accord.</p>
+      <p class="kv"><b>Accelerating what must be ruled early.</b> Before bracket rounds burn calendar time,
+      the full protocol runs a <b>minimal early-ruling pass</b> against the adopted term dictionary,
+      jurisdiction-anchored limits, and domain-specific outcome typology (known settlement, impasse, and
+      award patterns for this claim class - attested when the forum adopts the procedure). Matters that must
+      be decided <i>before</i> meaningful negotiation - unlawful must-haves, non-waivable conflicts, structurally
+      untenable contribution postures - surface as existence signals with rule citations. Reports may go to
+      <b>both parties</b> when a joint blocker is structural (no value leakage), or to <b>one party alone</b>
+      when that party's sealed posture is likely legally specious or untenable under the supplied references.
+      Parties adopt with those legal anchors attached; where best practices require it, advancing past a flagged
+      condition demands <b>validated counsel signoff</b> - an attested acceptance of the specific condition,
+      recorded before the matter proceeds. <b>This running demo implements bounds, four-class term sheets, and
+      package-feasibility signals</b>; the early-ruling pass, counsel-attestation gate, and full Gale-Shapley
+      selection are specified for the compiled build.</p>
       <p class="kv">Use ${this.demoLink()} to walk the matter at your own pace - <b>Back</b> / <b>Next</b>, clickable phase pills, and <b>Viewing as</b> for each seat. Optional <b>Remote play</b> runs a slow guided pass.</p>
     </div>
 
@@ -737,6 +745,13 @@ const App = {
     <div class="card"><h3>What is genuinely new here</h3>
       <table class="tbl">
         <tr><th>Capability</th><th>What makes it possible</th></tr>
+        <tr><td><b>Early ruling on what cannot proceed.</b> A minimal pass before brackets surfaces matters
+          that must be ruled in advance - unlawful sealed conditions, joint structural blockers, postures
+          likely untenable under forum-attested legal anchors and outcome typology. Signals go to both parties
+          when attribution would leak values; to one party alone when its position is likely specious.
+          Flagged paths may require validated counsel signoff attested to a specific condition before advance.</td>
+          <td>Deterministic <code>term_screen</code> + domain outcome priors + optional
+          <code>counsel_attest_condition</code> gate compiled into the CID; S6 advisory on custom terms.</td></tr>
         <tr><td><b>Honest numbers, zero exposure.</b> Parties state real reservation values because no human,
           operator, or counterparty can ever see them - a failed negotiation leaks nothing but the fact of
           impasse. That changes when parties are willing to engage: earlier, and with truer numbers.</td>
@@ -832,7 +847,7 @@ const App = {
     </div>
 
     <div class="card"><h3>Where to go next</h3>
-      <p>${this.demoLink()} auto-plays the full walkthrough in a few minutes; switch <b>Viewing as</b>
+      <p>${this.demoLink()} walks the full protocol at your own pace with Back/Next and clickable phase pills; switch <b>Viewing as</b>
       to compare role visibility. The <b>Technical overview</b> explains the three-substrate architecture (Pathways
       orchestration, Lit confidential execution, Aqua attestation) and exactly which claims the running code
       proves today. Behind both sits a sealed, offline-verifiable collaboration bundle carrying the full
@@ -910,7 +925,7 @@ const App = {
     <div class="card"><h3>What this demo proves, concretely</h3>
       <table class="tbl">
         <tr><th></th><th>Claim</th><th>See it</th></tr>
-        <tr><td>1</td><td><b>Shared discovery over private information.</b> Three carriers find a zone of possible agreement through sealed bracket rounds - reservation bounds are encrypted and never rendered to any other role. Only overlap/no-overlap signals and coarse distance bands ever leave the sealed boundary.</td><td>Intake + Brackets phases; switch roles to verify nothing leaks</td></tr>
+        <tr><td>1</td><td><b>Shared discovery over private information.</b> Three carriers find a zone of possible agreement through sealed bracket rounds - full intake packages (bounds + term sheets) encrypted, never rendered to any other role. Only overlap/feasibility signals and coarse distance bands leave the sealed boundary; early-ruling passes surface untenable postures before rounds accrue.</td><td>Intake + Brackets phases; switch roles to verify nothing leaks</td></tr>
         <tr><td>2</td><td><b>Deterministic vs. model-assisted work is structurally separated - and provable.</b> Every step declares a boundary class. The settlement arithmetic replays byte-identically from hashed inputs (reproducibility signatures); model use is confined to designated, labeled, advisory slots.</td><td>Developer overlay → Pathway steps + Compiled action → replay check</td></tr>
         <tr><td>3</td><td><b>The neutral holds every act of judgment.</b> Adopting the case structure, designating fact-checks, adopting or rejecting each finding, releasing phases, deciding on impasse - all recorded human acts. The neutral also gets a private, recorded inquiry channel into each party's case file: content chambers-private, existence public.</td><td>Structure, Facts phases as the Neutral; inquiry panel</td></tr>
         <tr><td>4</td><td><b>LLM use over materials is declared and accounted.</b> Every filed artifact carries a preparation disclosure - direct drafting and meta-use (forensics over evidence) alike - so materials arrive with their preparation history attached.</td><td>Present phase, any role</td></tr>
@@ -982,10 +997,11 @@ const App = {
 
   viewIntake(kind) {
     const g = this.guide("Phase 2 of 7 - Sealed intake",
-      `Each carrier commits two private payloads: <b>reservation bounds</b> (most pay / least accept per
-       obligation) and a <b>sealed term sheet</b> classifying every dictionary term as must have, must not
-       have, like to have, or prefer not. Hard classes filter package feasibility inside the enclave;
-       soft classes guide stable selection among feasible packages. Nothing leaks to other parties.`,
+      `Each carrier seals a <b>full intake package</b>: numeric reservation posture per obligation,
+       a four-class term sheet over every dictionary term, and any custom terms screened for legality.
+       Together these are the party's private constraint surface - not min/max alone. The instrument may
+       first flag postures that must be ruled early (unlawful must-haves, untenable contributions) with
+       legal references supplied at adoption; counsel attestation may be required before proceeding.`,
       `each carrier seals bounds + term sheet via <b>Viewing as</b>. The neutral sees ciphertext refs only.`);
     const dict = this.renderTermDictionary();
     if (kind === "party") {

@@ -868,26 +868,56 @@ const App = {
       appoint (the protocol's canonical term for whoever holds the gavel). The software keeps positions sealed;
       it does not run the case.</p>
       <p class="lede">Sealed Accord is a working demonstration of a new category of dispute-resolution
-      infrastructure: a settlement instrument where opposing sides discover agreement <b>without ever
-      revealing their positions, walk-away conditions, or preferences to each other or to any operator</b>,
-      where the appointed neutral retains every act of judgment, and where the entire proceeding
-      produces a record that any court, auditor, or regulator can verify independently - years later, with
-      free tools, trusting no one's database.</p>
+      infrastructure for <b>complex, high-stakes, multi-party negotiations</b> - the kind where several
+      sophisticated organizations must agree on money, obligations, and non-numeric terms at once, each
+      holding private reservation values and walk-away conditions they cannot safely disclose to anyone else
+      in the room. The instrument lets opposing sides discover whether agreement is possible <b>without ever
+      revealing positions, sacred terms, or preferences to each other or to any operator</b>, while the
+      appointed neutral retains every act of judgment, and the entire proceeding produces a record any court,
+      auditor, or regulator can verify independently - years later, with free tools, trusting no one's database.</p>
     </div>
 
-    <div class="card"><h3>What you are looking at</h3>
-      <p>The demo walks a realistic matter end to end: a four-vehicle highway collision has left three
-      insurance carriers holding paid claims, and they must agree on who owes whom. Each carrier privately
-      commits a <b>sealed intake package</b> - not a single number, but the full private constraint surface:
-      numeric reservation posture per obligation (maximum pay / minimum accept), a <b>four-class term sheet</b>
-      over every adopted dictionary term (<i>must have</i>, <i>must not have</i>, <i>like to have</i>,
-      <i>prefer not</i>), and any custom-term proposals screened against the protocol's legality table.
-      The instrument - never any person - checks whether those private constraints can be jointly satisfied,
-      releases only <i>"agreement is possible / not yet"</i> signals round by round, and when a feasible
-      package exists, computes settlement by the split rule the parties chose before anything was disclosed.
-      A retired judge presides throughout: structuring the dispute, commissioning narrow AI fact-checks,
-      privately interrogating each side's case file, and standing ready to decide if negotiation fails.
-      The parties themselves are the only ones who can sign the final accord.</p>
+    <div class="card"><h3>Where this applies</h3>
+      <p>The same structure generalizes across forums and industries: <b>three or more parties</b>, liquidated
+      or semi-liquidated claims, repeat institutional players, an existing mediator or arbitrator culture, and
+      information asymmetry severe enough that today's tools - shared spreadsheets, email brackets, vendor-hosted
+      deal rooms - are not credible carriers for true reserves and must-have terms.</p>
+      <p>Representative settings include <b>inter-insurer and reinsurer recoveries</b>, <b>construction and
+      infrastructure consortium</b> change-order and delay pools, <b>M&amp;A earnout and purchase-price
+      adjustment</b> disputes among buyer, seller, and escrow, <b>regulatory remediation and industry-fund
+      allocations</b>, <b>joint-venture wind-downs</b>, and <b>multi-defendant mass-tort contribution
+      rounds</b> - anywhere the negotiation is really about discovering joint feasibility under private
+      constraints, not persuading a single counterparty in the open.</p>
+      <p>What changes is the <b>term dictionary</b>, outcome typology, and legality screen adopted for the
+      claim class - not the underlying mechanics: sealed intake, early posture discovery, bracket rounds that
+      leak only feasibility signals, human gates on every judgment, and binding by each party's own signature.</p>
+    </div>
+
+    <div class="card"><h3>The demo scenario - and why this beachhead</h3>
+      <p><b>What you are looking at below</b> is a runnable walkthrough of that infrastructure. To keep the
+      proof concrete without drowning a first-time viewer in domain jargon, the demo uses one deliberately
+      unglamorous beachhead: <b>inter-insurer subrogation after a shared highway loss</b> - three carriers
+      reallocating paid claims among themselves after a multi-vehicle collision. It is money-only, high-volume,
+      and already routed through arbitration forums; the neutral culture exists; and private reserves are the
+      binding constraint carriers will never upload to a counterparty's tool. If the instrument is credible here,
+      it is credible anywhere the same information geometry appears.</p>
+      <table class="tbl">
+        <tr><td><b>High volume, low drama</b></td><td>Money-only disputes between sophisticated repeat players; no custody, no injunctions, no jury appeal. U.S. intercompany arbitration forums already process on the order of half a million to a million filings a year - structured resolution is the industry norm, not a provocation.</td></tr>
+        <tr><td><b>Real money in aggregate</b></td><td>U.S. property-casualty premiums run near a trillion dollars annually; industry estimates put subrogation recoveries moving between carriers in the tens of billions per year. Shaving rounds and cycle time off a high-volume flow is worth real margin.</td></tr>
+        <tr><td><b>Private information is the bottleneck</b></td><td>Carriers hold telematics, adjuster files, reserve positions, and term sensitivities they will never put on a shared drive. A confidential instrument is the only credible venue - this beachhead <i>needs</i> the technology, not just tolerates it.</td></tr>
+        <tr><td><b>The neutral culture exists</b></td><td>Arbitrators and mediators already run these dockets. The instrument serves them - it does not compete with them, which is precisely what makes it adoptable.</td></tr>
+      </table>
+      <p>In the walkthrough, a four-vehicle collision on I-80 has left those three carriers holding paid claims;
+      they must agree who owes whom. Each privately commits a <b>sealed intake package</b> - not a single number,
+      but the full private constraint surface: numeric reservation posture per obligation (maximum pay / minimum
+      accept), a <b>four-class term sheet</b> over every adopted dictionary term (<i>must have</i>,
+      <i>must not have</i>, <i>like to have</i>, <i>prefer not</i>), and any custom-term proposals screened
+      against the protocol's legality table. The instrument - never any person - checks whether those private
+      constraints can be jointly satisfied, releases only <i>"agreement is possible / not yet"</i> signals round
+      by round, and when a feasible package exists, computes settlement by the split rule the parties chose before
+      anything was disclosed. A retired judge presides throughout: structuring the dispute, commissioning narrow
+      AI fact-checks, privately interrogating each side's case file, and standing ready to decide if negotiation
+      fails. The carriers themselves are the only ones who can sign the final accord.</p>
       <p class="kv"><b>Accelerating what must be ruled early.</b> Before bracket rounds burn calendar time,
       the full protocol runs a <b>minimal early-ruling pass</b> against the adopted term dictionary,
       jurisdiction-anchored limits, and domain-specific outcome typology (known settlement, impasse, and
@@ -901,15 +931,15 @@ const App = {
       recorded before the matter proceeds. <b>This running demo implements bounds, four-class term sheets, and
       package-feasibility signals</b>; the early-ruling pass, counsel-attestation gate, and full Gale-Shapley
       selection are specified for the compiled build.</p>
-      <p class="kv">Use ${this.demoLink()} to walk the matter at your own pace - <b>Back</b> / <b>Next</b>, clickable phase pills, and <b>Viewing as</b> for each seat. Optional <b>Remote play</b> runs a slow guided pass.</p>
+      <p class="kv">Use ${this.demoLink()} to walk the matter at your own pace - <b>Back</b> / <b>Next</b>, clickable phase pills, and a banner button on each step to advance. Optional <b>Remote play</b> runs a slow guided pass.</p>
     </div>
 
     <div class="card"><h3>The problem it solves</h3>
-      <p>Settlement negotiation runs on information nobody can afford to share. A carrier that reveals its
-      true reserve invites exploitation; a party that reveals which terms are sacred concedes leverage before
+      <p>Settlement negotiation runs on information nobody can afford to share. A party that reveals its
+      true reserve invites exploitation; one that reveals which terms are sacred concedes leverage before
       the first bracket; a failed mediation leaves every position paper in the counterparty's file; and the
       tools that could help - shared valuation models, structured offer exchange - all require trusting some
-      vendor's server with the most sensitive numbers and conditions in the case. Meanwhile AI has already
+      operator's server with the most sensitive numbers and conditions in the case. Meanwhile AI has already
       entered the room undeclared: position papers are model-drafted, evidence is model-analyzed, and no
       forum has a systematic way to know which materials were machine-prepared or how. The result is slower
       settlements, later engagement, and growing unease among the neutrals who preside.</p>
@@ -974,17 +1004,6 @@ const App = {
       </table>
     </div>
 
-    <div class="card"><h3>Target use case, and why it was chosen</h3>
-      <p><b>Inter-insurer subrogation of multi-vehicle losses</b> - carriers reallocating paid claims among
-      themselves after a shared loss. It is the deliberately unglamorous, ideal beachhead:</p>
-      <table class="tbl">
-        <tr><td><b>High volume, low drama</b></td><td>Money-only disputes between sophisticated repeat players; no custody, no injunctions, no jury appeal. U.S. intercompany arbitration forums already process on the order of half a million to a million filings a year - structured resolution is the industry norm, not a provocation.</td></tr>
-        <tr><td><b>Real money in aggregate</b></td><td>U.S. property-casualty premiums run near a trillion dollars annually; industry estimates put subrogation recoveries moving between carriers in the tens of billions per year. Shaving rounds and cycle time off a high-volume flow is worth real margin.</td></tr>
-        <tr><td><b>Private information is the bottleneck</b></td><td>Carriers hold telematics, adjuster files, reserve positions, and term sensitivities they will never upload to a counterparty's tool. A confidential instrument is the only credible venue - this use case <i>needs</i> the technology, not just tolerates it.</td></tr>
-        <tr><td><b>The neutral culture exists</b></td><td>Arbitrators and mediators already run these dockets. The instrument serves them - it does not compete with them, which is precisely what makes it adoptable.</td></tr>
-      </table>
-    </div>
-
     <div class="card"><h3>Adoption path</h3>
       <p><b>1 - Shadow pilots (quarters, not years).</b> A carrier pair or small consortium runs the instrument
       alongside an existing docket on closed matters: same claims, sealed instrument in parallel. The output is
@@ -1004,16 +1023,13 @@ const App = {
     </div>
 
     <div class="card"><h3>Market shape</h3>
-      <p>The beachhead alone - U.S. inter-carrier subrogation - is a high-six-figure annual case flow moving
-      tens of billions of dollars, today resolved through filings, docket queues, and adjuster phone calls. Around
-      it sits the broader alternative-dispute-resolution economy: a multi-billion-dollar global services market
-      spanning commercial arbitration, mediation, and the fast-growing online-dispute-resolution segment, all of
-      it under pressure to answer for AI in the file room. The wedge is per-matter infrastructure fees (a small
-      accord fee at settlement, split among procedure authors, the presiding forum, and the runtime) rather than
-      seat licenses - aligned with settlements actually closing, and priced invisibly against the cost of one
-      additional negotiation round. The categories the procedure generalizes to - construction disputes,
-      reinsurance, earnouts - each individually move billions annually and share the same structure: liquidated
-      claims, private reservation values, repeat institutional players, and an existing neutral to preside.</p>
+      <p>The beachhead is a proof point, not a ceiling. U.S. inter-carrier subrogation alone is a high-six-figure
+      annual case flow moving tens of billions of dollars; around it sits the broader alternative-dispute-resolution
+      economy and every other multi-party setting named above - construction pools, reinsurance commutations,
+      earnouts - each moving serious money under the same private-information geometry. The wedge is per-matter
+      infrastructure fees (a small accord fee at settlement, split among procedure authors, the presiding forum,
+      and the runtime) rather than seat licenses - aligned with settlements actually closing, and priced invisibly
+      against the cost of one additional negotiation round.</p>
       <p class="kv">Figures above are industry-scale estimates for orientation, deliberately conservative and
       hedged; the pilot design in step 1 exists precisely to replace estimates with the instrument's own
       measured evidence.</p>

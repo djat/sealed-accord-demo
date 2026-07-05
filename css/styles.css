@@ -299,6 +299,7 @@ table.tbl th { color: var(--muted); font-weight: 600; font-size: 12px; }
 /* Overview page */
 .ov-hero { padding: 6px 0 2px; }
 .ov-hero h2 { font-size: 24px; margin: 0 0 8px; }
+.ov-hero .ov-sub { font-size: 15px; color: var(--text); max-width: 760px; margin: 0 0 10px; line-height: 1.45; }
 .ov-hero .lede { font-size: 15.5px; color: var(--muted); max-width: 760px; }
 .ov-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 16px 0; }
 .ov-pillar { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }

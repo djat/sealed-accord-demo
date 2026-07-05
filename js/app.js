@@ -693,11 +693,14 @@ const App = {
   viewExecOverview() {
     return `
     <div class="ov-hero">
-      <h2>A confidential deal room for multi-party settlement,<br>presided by the parties' neutral, not operated by the vendor's platform.</h2>
+      <h2>A confidential deal room for multi-party settlement</h2>
+      <p class="ov-sub">Presided by a <b>neutral</b> — an independent mediator, arbitrator, or judge the disputants
+      appoint (the protocol's canonical term for whoever holds the gavel). The software keeps positions sealed;
+      it does not run the case.</p>
       <p class="lede">Sealed Accord is a working demonstration of a new category of dispute-resolution
-      infrastructure: a settlement instrument where opposing parties discover agreement <b>without ever
+      infrastructure: a settlement instrument where opposing sides discover agreement <b>without ever
       revealing their positions, walk-away conditions, or preferences to each other or to any operator</b>,
-      where a human mediator or arbitrator retains every act of judgment, and where the entire proceeding
+      where the appointed neutral retains every act of judgment, and where the entire proceeding
       produces a record that any court, auditor, or regulator can verify independently - years later, with
       free tools, trusting no one's database.</p>
     </div>

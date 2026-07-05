@@ -164,6 +164,8 @@ const App = {
           if (rec && !rec.decision)
             items.push({ dim: "neutral", text: `Adopt or reject finding ${q.id}` });
         }
+        if (this.factsWorkComplete() && this.phaseIndex(this.state.phase) < this.phaseIndex("brackets"))
+          items.push({ dim: "neutral", text: "Release bracket rounds" });
         break;
       case "brackets":
         if (this.phaseIndex(this.state.phase) < this.phaseIndex("brackets"))
@@ -172,6 +174,8 @@ const App = {
           items.push({ dim: "party", text: "Run at least one sealed bracket round" });
         else if (!this.state.lastSignals?.feasible)
           items.push({ dim: "party", text: "Revise bounds/terms and run another round until overlap + term package feasible" });
+        else if (!this.state.accord)
+          items.push({ dim: "party", text: "Assemble accord from feasible bracket outcome" });
         break;
       case "accord":
         if (!this.state.accord)
@@ -256,23 +260,33 @@ const App = {
       },
       facts: {
         pending: () => this.factsHasPendingWork(),
-        label: "Complete facts for all",
+        label: () => (this.factsWorkComplete() && this.phaseIndex(this.state.phase) === this.phaseIndex("facts")
+          ? "Release to brackets" : "Complete facts for all"),
         fn: "App.factsCompleteAll()",
       },
       brackets: {
         pending: () => this.bracketsHasPendingWork(),
-        label: "Run brackets to agreement",
+        label: () => (this.state.lastSignals?.feasible && !this.state.accord
+          ? "Assemble accord" : "Run brackets to agreement"),
         fn: "App.bracketsCompleteAll()",
       },
       accord: {
         pending: () => this.accordHasPendingWork(),
-        label: "Complete accord for all",
+        label: () => (!this.state.accord ? "Assemble accord" : "Sign accord for all"),
         fn: "App.accordCompleteAll()",
       },
     };
     const action = actions[phase];
     if (!action?.pending()) return "";
-    return `<div class="deps-bulk"><button type="button" class="btn small" onclick="${action.fn}">${action.label}</button></div>`;
+    const label = typeof action.label === "function" ? action.label() : action.label;
+    return `<div class="deps-bulk"><button type="button" class="btn small" onclick="${action.fn}">${label}</button></div>`;
+  },
+
+  factsWorkComplete() {
+    return SCENARIO.s2Questions.every((q) => {
+      const rec = this.state.s2.find((x) => x.id === q.id);
+      return rec && rec.decision;
+    });
   },
 
   demoPickBinary(favorTrue = 0.72) {
@@ -296,22 +310,20 @@ const App = {
 
   bracketsHasPendingWork() {
     if (this.phaseIndex(this.state.phase) < this.phaseIndex("brackets")) return true;
-    return this.state.round === 0 || !this.state.lastSignals?.feasible;
+    if (this.state.round === 0 || !this.state.lastSignals?.feasible) return true;
+    return !this.state.accord;
   },
 
   accordHasPendingWork() {
-    if (!this.state.lastSignals?.feasible) return false;
-    if (!this.state.accord) return true;
+    if (this.phaseIndex(this.state.phase) < this.phaseIndex("accord")) return false;
+    if (!this.state.accord) return !!this.state.lastSignals?.feasible;
     return SCENARIO.parties.some((p) => !this.state.accord.signatures[p.id]);
   },
 
   factsHasPendingWork() {
     if (this.phaseIndex(this.state.phase) < this.phaseIndex("facts")) return true;
-    for (const q of SCENARIO.s2Questions) {
-      const rec = this.state.s2.find((x) => x.id === q.id);
-      if (!rec || !rec.decision) return true;
-    }
-    return false;
+    if (!this.factsWorkComplete()) return true;
+    return this.phaseIndex(this.state.phase) < this.phaseIndex("brackets");
   },
 
   renderDemoControls() {
@@ -530,6 +542,8 @@ const App = {
       const rec = this.state.s2.find((x) => x.id === q.id);
       if (rec && !rec.decision) await this.s2Decide(q.id, this.demoPickBinary());
     }
+    if (this.factsWorkComplete() && this.phaseIndex(this.state.phase) < this.phaseIndex("brackets"))
+      await this.proceedToBrackets();
   },
 
   async structureCompleteAll() {
@@ -559,6 +573,7 @@ const App = {
       if (this.state.round > 0) this.nudgeBoundsForOverlap();
       await this.runRound();
     }
+    if (this.state.lastSignals?.feasible && !this.state.accord) await this.assembleAccord();
   },
 
   async accordCompleteAll() {
@@ -1269,7 +1284,7 @@ const App = {
        cited to that party's own artifacts. The content is chambers-private; the <i>existence</i> of
        every query (who was asked about, query hash, answer hash, time) is public to all parties, so
        equal treatment is auditable without exposing judicial thinking.`,
-      `use <b>Complete facts for all</b> in the banner above (each adopt/reject is randomized), then release brackets.`);
+      `use <b>Complete facts for all</b> in the banner above (randomized adopt/reject per finding), then <b>Release to brackets</b> when fact-checks are done.`);
     const qRows = SCENARIO.s2Questions.map((q) => {
       const rec = this.state.s2.find((x) => x.id === q.id);
       let status;
@@ -1299,7 +1314,7 @@ const App = {
       `The negotiation core: a <b>sealed-bid mechanism over private constraints</b>. Each round decrypts
        bounds and term sheets, checks ZOPA overlap per obligation and hard-term package feasibility, and
        releases <i>only signals</i>. Parties may revise bounds and soft term postures between rounds.`,
-      `use <b>Run brackets to agreement</b> in the banner above, or revise bounds manually via <b>Viewing as</b> a carrier.`);
+      `use <b>Run brackets to agreement</b> in the banner above (then <b>Assemble accord</b> when feasible).`);
     let body;
     if (kind === "party") {
       const p = SCENARIO.parties.find((x) => x.id === this.role);
@@ -1359,7 +1374,7 @@ const App = {
        effect only when every carrier signs its digest with its own key (real ECDSA keys generated in
        this browser session - the instrument holds none of them). On completion, a process-shaped
        outcome signal feeds the longitudinal protocol ledger.`,
-      `use <b>Complete accord for all</b> in the banner above to assemble (if needed) and sign.`);
+      `use <b>Assemble accord</b> or <b>Sign accord for all</b> in the banner above.`);
     const a = this.state.accord;
     if (!a) return g + `<div class="card"><h3>Accord</h3><p>No proposal assembled.</p></div>`;
     const allocRows = Object.entries(a.allocation).map(([oblId, amt]) => {

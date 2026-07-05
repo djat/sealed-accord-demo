@@ -891,6 +891,13 @@ const App = {
       <p>What changes is the <b>term dictionary</b>, outcome typology, and legality screen adopted for the
       claim class - not the underlying mechanics: sealed intake, early posture discovery, bracket rounds that
       leak only feasibility signals, human gates on every judgment, and binding by each party's own signature.</p>
+      <p>Where disputants are <b>institutions acting for downstream claimants, customers, or communities</b> -
+      insurers, industry funds, remediation pools - slow multi-party bracket warfare is not a purely private
+      quarrel. Contested reserves and calendar time are downstream friction: people waiting on claim closure,
+      repairs, or compensation while organizations argue in the back office. Forums organized as <b>cooperative
+      industry associations</b> - shared arbitration tracks, mutualized procedure libraries, repeat-player
+      pools - have a legitimate collective interest in letting members reach accord faster <i>without</i>
+      surrendering the competitive information that honest negotiation requires.</p>
     </div>
 
     <div class="card"><h3>The demo scenario - and why this beachhead</h3>
@@ -900,9 +907,11 @@ const App = {
       reallocating paid claims among themselves after a multi-vehicle collision. It is money-only, high-volume,
       and already routed through arbitration forums; the neutral culture exists; and private reserves are the
       binding constraint carriers will never upload to a counterparty's tool. If the instrument is credible here,
-      it is credible anywhere the same information geometry appears.</p>
+      it is credible anywhere the same information geometry appears - including wherever institutions must settle
+      with each other <i>on behalf of</i> people who need claims closed and capital moving again.</p>
       <table class="tbl">
         <tr><td><b>High volume, low drama</b></td><td>Money-only disputes between sophisticated repeat players; no custody, no injunctions, no jury appeal. U.S. intercompany arbitration forums already process on the order of half a million to a million filings a year - structured resolution is the industry norm, not a provocation.</td></tr>
+        <tr><td><b>Downstream public benefit</b></td><td>In a shared-loss matter, policyholders have usually already been paid by their own carrier - but until carriers agree who ultimately bears the loss, reserves stay contested, files stay open, and the system keeps spending adjuster and forum time instead of releasing capital back to the claim economy. Intercompany arbitration is already a <i>cooperative</i> venue: carriers jointly maintaining procedures they all route high-volume disputes through. Faster honest convergence is a modest but real collective benefit to the customers and communities those carriers serve.</td></tr>
         <tr><td><b>Real money in aggregate</b></td><td>U.S. property-casualty premiums run near a trillion dollars annually; industry estimates put subrogation recoveries moving between carriers in the tens of billions per year. Shaving rounds and cycle time off a high-volume flow is worth real margin.</td></tr>
         <tr><td><b>Private information is the bottleneck</b></td><td>Carriers hold telematics, adjuster files, reserve positions, and term sensitivities they will never put on a shared drive. A confidential instrument is the only credible venue - this beachhead <i>needs</i> the technology, not just tolerates it.</td></tr>
         <tr><td><b>The neutral culture exists</b></td><td>Arbitrators and mediators already run these dockets. The instrument serves them - it does not compete with them, which is precisely what makes it adoptable.</td></tr>

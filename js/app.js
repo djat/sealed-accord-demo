@@ -115,6 +115,12 @@ const App = {
     this.render();
   },
 
+  setProgressPhase(phase) {
+    const prev = this.state.phase;
+    this.state.phase = phase;
+    if (this.viewPhase === prev) this.viewPhase = phase;
+  },
+
   partyLabel(id) {
     return id === "neutral" ? SCENARIO.neutral.name : SCENARIO.parties.find((p) => p.id === id).name;
   },
@@ -274,10 +280,6 @@ const App = {
       this.setViewPhase(PHASES[idx + 1]);
       return;
     }
-    if (idx === progressIdx && !this.isPhaseComplete(this.viewPhase)) {
-      this.render();
-      return;
-    }
     if (idx < PHASES.length - 1) this.setViewPhase(PHASES[idx + 1]);
   },
 
@@ -414,7 +416,7 @@ const App = {
     this.state.adopted.add(who);
     await RunRecord.append("protocol_adopted", { who, compiled_cid: this.state.compiledCid }, "deterministic");
     if (this.state.adopted.size === SCENARIO.parties.length + 1) {
-      this.state.phase = "intake";
+      this.setProgressPhase("intake");
       this.step(1, { status: "running" });
     }
     this.emit();
@@ -434,7 +436,7 @@ const App = {
     await RunRecord.append("intake_sealed", { party: partyId, ref: sealed.ref, term_count: Object.keys(payload.termSheet).length }, "deterministic");
     if (Object.keys(this.state.sealedRefs).length === SCENARIO.parties.length) {
       this.step(1, { status: "done" });
-      this.state.phase = "structure";
+      this.setProgressPhase("structure");
       await this.runS1();
     }
     this.emit();
@@ -478,7 +480,7 @@ const App = {
     this.step(3, { status: "done", adopted: adopt });
     await RunRecord.append("s1_decision", { decision: this.state.s1.decision, by: SCENARIO.neutral.did }, "deterministic", { human_gate: true });
     if (adopt) {
-      this.state.phase = "present";
+      this.setProgressPhase("present");
       this.step(4, { status: "running" });
       await RunRecord.append("ledger_verify", {
         parties: SCENARIO.parties.map((p) => ({ id: p.id, artifacts: p.caseFile.length,
@@ -490,7 +492,7 @@ const App = {
   },
 
   async proceedToFacts() {
-    this.state.phase = "facts";
+    this.setProgressPhase("facts");
     this.step(5, { status: "running" });
     this.emit();
   },
@@ -543,7 +545,7 @@ const App = {
   },
 
   async proceedToBrackets() {
-    this.state.phase = "brackets";
+    this.setProgressPhase("brackets");
     this.step(7, { status: "running" });
     this.emit();
   },
@@ -574,7 +576,7 @@ const App = {
     if (!r.response.feasible) { this.step(8, { status: "done" }); this.emit(); return; }
     const digest = await hashObj({ matter: SCENARIO.matterId, allocation: r.response.allocation, root: RunRecord.root() });
     this.state.accord = { allocation: r.response.allocation, reproducibility: r.response.reproducibility, digest, signatures: {} };
-    this.state.phase = "accord";
+    this.setProgressPhase("accord");
     this.step(8, { status: "done" });
     this.step(9, { status: "running" });
     await RunRecord.append("accord_proposed", { allocation: r.response.allocation, digest }, "deterministic");

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sealed Accord - confidential multi-party settlement (local demo)</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">§</span>
+    <div>
+      <h1>Sealed Accord</h1>
+      <p class="tagline">Confidential multi-party settlement under a human neutral · local demo</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <nav class="pagenav" id="pageNav">
+      <button class="page-tab" data-page="exec">Executive overview</button>
+      <button class="page-tab" data-page="overview">Technical overview</button>
+      <button class="page-tab" data-page="matter">Run the demo</button>
+    </nav>
+    <span class="stub-banner" title="No request leaves this page. Every call is validated against the Lit Chipotle API spec and answered by a local stub.">STUB MODE - zero network</span>
+    <button type="button" id="themeBtn" class="theme-btn" title="Toggle light / dark">◐ Theme</button>
+    <label class="dev-toggle" title="Show pathway steps, boundary classes, staged-prompt hashes, and spec-correct Chipotle API traffic">
+      <span>Developer overlay</span>
+      <button type="button" role="switch" aria-checked="false" id="devSwitch" class="dev-switch"><span class="knob"></span></button>
+    </label>
+  </div>
+</header>
+
+<nav class="rolebar" id="rolebar">
+  <span class="rolebar-label">Viewing as</span>
+  <div class="role-tabs" id="roleTabs"></div>
+  <div class="phase-chip" id="phaseChip"></div>
+</nav>
+
+<main class="layout">
+  <section class="stage" id="stage"><!-- phase UI renders here --></section>
+  <aside class="dev-panel hidden" id="devPanel">
+    <div class="dev-panel-head">
+      <h2>Developer overlay</h2>
+      <span class="dev-sub">Pathway <code>Lit.Negotiation.SealedAccord@v1</code> · compiled CID <code id="devCid"> - </code></span>
+    </div>
+    <div class="dev-tabs" id="devTabs"></div>
+    <div class="dev-body" id="devBody"></div>
+  </aside>
+</main>
+
+<footer class="foot">
+  <span>Reference application for the <code>djat-lit-20260704</code> bundle demo spec · deterministic math runs live in this page · model slots and Chipotle transport are stubbed to spec</span>
+</footer>
+
+<script src="js/scenario.js"></script>
+<script src="js/protocol.js"></script>
+<script src="js/chipotle-stub.js"></script>
+<script src="js/dev-overlay.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

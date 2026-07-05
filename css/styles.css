@@ -199,6 +199,7 @@ a { color: var(--accent2); }
 .deps-banner h4 { margin: 0 0 8px; font-size: 13px; color: var(--accent); }
 .deps-banner ul { margin: 0; padding-left: 18px; }
 .deps-banner li { margin: 4px 0; }
+.deps-bulk { margin-top: 10px; }
 .dep-dim {
   display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .04em;
   color: var(--muted); min-width: 72px;

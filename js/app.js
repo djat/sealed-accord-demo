@@ -225,7 +225,46 @@ const App = {
     if (!deps.length) return "";
     const rows = deps.map((d) =>
       `<li><span class="dep-dim">${d.dim}</span> ${d.text}${d.role ? ` <button type="button" class="linkish" onclick="App.role='${d.role}';App.renderRoles();App.render()">view as</button>` : ""}</li>`).join("");
-    return `<div class="deps-banner ${viewIdx > progressIdx ? "locked" : "action"}"><h4>${title}</h4><ul>${rows}</ul></div>`;
+    const bulk = viewIdx === progressIdx ? this.renderPhaseBulkAction(view) : "";
+    return `<div class="deps-banner ${viewIdx > progressIdx ? "locked" : "action"}"><h4>${title}</h4><ul>${rows}</ul>${bulk}</div>`;
+  },
+
+  renderPhaseBulkAction(phase) {
+    if (this.remote.active) return "";
+    const actions = {
+      adopt: {
+        pending: () => [...SCENARIO.parties.map((p) => p.id), "neutral"].some((id) => !this.state.adopted.has(id)),
+        label: "Adopt for all",
+        fn: "App.adoptAll()",
+      },
+      intake: {
+        pending: () => SCENARIO.parties.some((p) => !this.state.sealedRefs[p.id]),
+        label: "Seal intake for all",
+        fn: "App.sealIntakeAll()",
+      },
+      facts: {
+        pending: () => this.factsHasPendingWork(),
+        label: "Complete facts for all",
+        fn: "App.factsCompleteAll()",
+      },
+      accord: {
+        pending: () => this.state.accord && SCENARIO.parties.some((p) => !this.state.accord.signatures[p.id]),
+        label: "Sign for all",
+        fn: "App.signAccordAll()",
+      },
+    };
+    const action = actions[phase];
+    if (!action?.pending()) return "";
+    return `<div class="deps-bulk"><button type="button" class="btn small" onclick="${action.fn}">${action.label}</button></div>`;
+  },
+
+  factsHasPendingWork() {
+    if (this.phaseIndex(this.state.phase) < this.phaseIndex("facts")) return true;
+    for (const q of SCENARIO.s2Questions) {
+      const rec = this.state.s2.find((x) => x.id === q.id);
+      if (!rec || !rec.decision) return true;
+    }
+    return false;
   },
 
   renderDemoControls() {
@@ -420,6 +459,38 @@ const App = {
       this.step(1, { status: "running" });
     }
     this.emit();
+  },
+
+  async adoptAll() {
+    if (this.remote.active) return;
+    for (const id of [...SCENARIO.parties.map((p) => p.id), "neutral"]) {
+      if (!this.state.adopted.has(id)) await this.adopt(id);
+    }
+  },
+
+  async sealIntakeAll() {
+    if (this.remote.active) return;
+    for (const p of SCENARIO.parties) {
+      if (!this.state.sealedRefs[p.id]) await this.sealIntake(p.id);
+    }
+  },
+
+  async factsCompleteAll() {
+    if (this.remote.active) return;
+    if (this.phaseIndex(this.state.phase) < this.phaseIndex("facts")) await this.proceedToFacts();
+    for (const q of SCENARIO.s2Questions) {
+      if (!this.state.s2.find((x) => x.id === q.id)) await this.runS2(q.id);
+      const rec = this.state.s2.find((x) => x.id === q.id);
+      if (rec && !rec.decision) await this.s2Decide(q.id, true);
+    }
+  },
+
+  async signAccordAll() {
+    if (this.remote.active) return;
+    if (!this.state.accord) return;
+    for (const p of SCENARIO.parties) {
+      if (!this.state.accord.signatures[p.id]) await this.signAccord(p.id);
+    }
   },
 
   async sealIntake(partyId) {
@@ -977,7 +1048,8 @@ const App = {
        neutral sign the <b>protocol hash</b> - the settlement procedure itself (phases, reveal rules,
        split rule, term dictionary, model-use slots, the neutral's viewing scope) frozen as one
        content-addressed artifact.`,
-      `switch <b>Viewing as</b> to each carrier and the neutral, then click <b>Adopt protocol hash</b> for each.`);
+      `switch <b>Viewing as</b> to each carrier and the neutral, click <b>Adopt protocol hash</b> for each,
+       or use <b>Adopt for all</b> in the banner above.`);
     const who = [...SCENARIO.parties.map((p) => p.id), "neutral"];
     const rows = who.map((id) => {
       const label = id === "neutral" ? SCENARIO.neutral.name : SCENARIO.parties.find((p) => p.id === id).name;
@@ -1007,7 +1079,7 @@ const App = {
        Together these are the party's private constraint surface - not min/max alone. The instrument may
        first flag postures that must be ruled early (unlawful must-haves, untenable contributions) with
        legal references supplied at adoption; counsel attestation may be required before proceeding.`,
-      `each carrier seals bounds + term sheet via <b>Viewing as</b>. The neutral sees ciphertext refs only.`);
+      `each carrier seals bounds + term sheet via <b>Viewing as</b>, or use <b>Seal intake for all</b> in the banner above. The neutral sees ciphertext refs only.`);
     const dict = this.renderTermDictionary();
     if (kind === "party") {
       const p = SCENARIO.parties.find((x) => x.id === this.role);
@@ -1205,7 +1277,7 @@ const App = {
        effect only when every carrier signs its digest with its own key (real ECDSA keys generated in
        this browser session - the instrument holds none of them). On completion, a process-shaped
        outcome signal feeds the longitudinal protocol ledger.`,
-      `each carrier signs via <b>Viewing as</b>. Or use <b>Remote play</b> for a slow guided walkthrough.`);
+      `each carrier signs via <b>Viewing as</b>, or use <b>Sign for all</b> in the banner above. Or use <b>Remote play</b> for a slow guided walkthrough.`);
     const a = this.state.accord;
     if (!a) return g + `<div class="card"><h3>Accord</h3><p>No proposal assembled.</p></div>`;
     const allocRows = Object.entries(a.allocation).map(([oblId, amt]) => {

@@ -132,42 +132,44 @@ const App = {
     switch (phase) {
       case "adopt":
         for (const id of allAdopters.filter((id) => !adopted.has(id)))
-          items.push({ dim: "participant", text: `${this.partyLabel(id)} must adopt the protocol hash`, role: id });
+          items.push({ dim: "participant", text: `${this.partyLabel(id)} must adopt the protocol hash` });
         break;
       case "intake":
         if (adopted.size < allAdopters.length)
           items.push({ dim: "phase", text: "Complete protocol adoption (all carriers + neutral)" });
         for (const p of SCENARIO.parties.filter((p) => !this.state.sealedRefs[p.id]))
-          items.push({ dim: "party", text: `${p.name} must seal bounds + term sheet`, role: p.id });
+          items.push({ dim: "party", text: `${p.name} must seal bounds + term sheet` });
         break;
       case "structure":
         if (!this.state.s1.output)
           items.push({ dim: "system", text: "Await S1 neutral decomposition (runs after all intakes seal)" });
         else if (!this.state.s1.decision)
-          items.push({ dim: "neutral", text: "Neutral must adopt or reject the decomposition", role: "neutral" });
+          items.push({ dim: "neutral", text: "Neutral must adopt or reject the decomposition" });
         else if (this.state.s1.decision === "rejected")
           items.push({ dim: "neutral", text: "Structure was rejected - matter cannot proceed on this path" });
         break;
       case "present":
         if (this.state.s1.decision !== "adopted")
-          items.push({ dim: "phase", text: "Neutral must adopt the S1 decomposition" });
+          items.push({ dim: "phase", text: "Complete structure (neutral decomposition must be adopted)" });
+        else if (this.phaseIndex(this.state.phase) < this.phaseIndex("facts"))
+          items.push({ dim: "neutral", text: "Release the facts phase" });
         break;
       case "facts":
         if (this.phaseIndex(this.state.phase) < this.phaseIndex("facts"))
-          items.push({ dim: "neutral", text: "Neutral must release the facts phase from Present", role: "neutral" });
+          items.push({ dim: "neutral", text: "Release the facts phase from Present" });
         for (const q of SCENARIO.s2Questions.filter((q) => !this.state.s2.find((x) => x.id === q.id)))
-          items.push({ dim: "neutral", text: `Designate fact-check ${q.id}`, role: "neutral" });
+          items.push({ dim: "neutral", text: `Designate fact-check ${q.id}` });
         for (const q of SCENARIO.s2Questions) {
           const rec = this.state.s2.find((x) => x.id === q.id);
           if (rec && !rec.decision)
-            items.push({ dim: "neutral", text: `Adopt or reject finding ${q.id}`, role: "neutral" });
+            items.push({ dim: "neutral", text: `Adopt or reject finding ${q.id}` });
         }
         break;
       case "brackets":
         if (this.phaseIndex(this.state.phase) < this.phaseIndex("brackets"))
-          items.push({ dim: "neutral", text: "Neutral must release bracket rounds from Facts", role: "neutral" });
+          items.push({ dim: "neutral", text: "Release bracket rounds from Facts" });
         if (this.state.round === 0)
-          items.push({ dim: "party", text: "Run at least one sealed bracket round (any carrier)" });
+          items.push({ dim: "party", text: "Run at least one sealed bracket round" });
         else if (!this.state.lastSignals?.feasible)
           items.push({ dim: "party", text: "Revise bounds/terms and run another round until overlap + term package feasible" });
         break;
@@ -175,7 +177,7 @@ const App = {
         if (!this.state.accord)
           items.push({ dim: "party", text: "Assemble accord after full bracket feasibility" });
         else for (const p of SCENARIO.parties.filter((p) => !this.state.accord.signatures[p.id]))
-          items.push({ dim: "party", text: `${p.name} must sign the accord digest`, role: p.id });
+          items.push({ dim: "party", text: `${p.name} must sign the accord digest` });
         break;
     }
     return items;
@@ -224,7 +226,7 @@ const App = {
     }
     if (!deps.length) return "";
     const rows = deps.map((d) =>
-      `<li><span class="dep-dim">${d.dim}</span> ${d.text}${d.role ? ` <button type="button" class="linkish" onclick="App.role='${d.role}';App.renderRoles();App.render()">view as</button>` : ""}</li>`).join("");
+      `<li><span class="dep-dim">${d.dim}</span> ${d.text}</li>`).join("");
     const bulk = viewIdx === progressIdx ? this.renderPhaseBulkAction(view) : "";
     return `<div class="deps-banner ${viewIdx > progressIdx ? "locked" : "action"}"><h4>${title}</h4><ul>${rows}</ul>${bulk}</div>`;
   },
@@ -242,20 +244,65 @@ const App = {
         label: "Seal intake for all",
         fn: "App.sealIntakeAll()",
       },
+      structure: {
+        pending: () => this.structureHasPendingWork(),
+        label: "Complete structure",
+        fn: "App.structureCompleteAll()",
+      },
+      present: {
+        pending: () => this.presentHasPendingWork(),
+        label: "Release to facts",
+        fn: "App.presentCompleteAll()",
+      },
       facts: {
         pending: () => this.factsHasPendingWork(),
         label: "Complete facts for all",
         fn: "App.factsCompleteAll()",
       },
+      brackets: {
+        pending: () => this.bracketsHasPendingWork(),
+        label: "Run brackets to agreement",
+        fn: "App.bracketsCompleteAll()",
+      },
       accord: {
-        pending: () => this.state.accord && SCENARIO.parties.some((p) => !this.state.accord.signatures[p.id]),
-        label: "Sign for all",
-        fn: "App.signAccordAll()",
+        pending: () => this.accordHasPendingWork(),
+        label: "Complete accord for all",
+        fn: "App.accordCompleteAll()",
       },
     };
     const action = actions[phase];
     if (!action?.pending()) return "";
     return `<div class="deps-bulk"><button type="button" class="btn small" onclick="${action.fn}">${action.label}</button></div>`;
+  },
+
+  demoPickBinary(favorTrue = 0.72) {
+    return Math.random() < favorTrue;
+  },
+
+  demoPickChoice(options) {
+    return options[Math.floor(Math.random() * options.length)];
+  },
+
+  structureHasPendingWork() {
+    if (this.state.s1.decision === "rejected") return false;
+    if (!this.state.s1.output) return this.phaseIndex(this.state.phase) === this.phaseIndex("structure");
+    return !this.state.s1.decision;
+  },
+
+  presentHasPendingWork() {
+    return this.state.s1.decision === "adopted"
+      && this.phaseIndex(this.state.phase) < this.phaseIndex("facts");
+  },
+
+  bracketsHasPendingWork() {
+    if (this.phaseIndex(this.state.phase) < this.phaseIndex("brackets")) return true;
+    return this.state.round === 0 || !this.state.lastSignals?.feasible;
+  },
+
+  accordHasPendingWork() {
+    if (!this.state.lastSignals?.feasible) return false;
+    if (!this.state.accord) return true;
+    return SCENARIO.parties.some((p) => !this.state.accord.signatures[p.id]);
   },
 
   factsHasPendingWork() {
@@ -282,7 +329,7 @@ const App = {
       ? `<span class="kv"><b>Remote:</b> ${r.stepLabel}</span>`
       : r.complete
         ? `<span class="kv">Walkthrough complete. Use the phase pills or actions below, or <button type="button" class="linkish" onclick="App.resetDemo()">restart</button>.</span>`
-        : `<span class="kv">Use <b>Back</b> / <b>Next</b> to browse phases, click any pill to jump, or take actions in each seat via <b>Viewing as</b>.</span>`;
+        : `<span class="kv">Use <b>Back</b> / <b>Next</b> to browse phases, or the banner button on each step to advance.</span>`;
     return `<div class="demo-controls">
       <div class="demo-controls-nav">
         <button type="button" class="btn small ghost" onclick="App.navBack()" ${backDisabled ? "disabled" : ""}>← Back</button>
@@ -481,8 +528,43 @@ const App = {
     for (const q of SCENARIO.s2Questions) {
       if (!this.state.s2.find((x) => x.id === q.id)) await this.runS2(q.id);
       const rec = this.state.s2.find((x) => x.id === q.id);
-      if (rec && !rec.decision) await this.s2Decide(q.id, true);
+      if (rec && !rec.decision) await this.s2Decide(q.id, this.demoPickBinary());
     }
+  },
+
+  async structureCompleteAll() {
+    if (this.remote.active) return;
+    while (!this.state.s1.output) await this.demoDelay(150);
+    if (!this.state.s1.decision) await this.s1Decide(this.demoPickBinary());
+  },
+
+  async presentCompleteAll() {
+    if (this.remote.active) return;
+    await this.proceedToFacts();
+  },
+
+  nudgeBoundsForOverlap() {
+    if (this.state.bounds.meridian?.AtoB) this.state.bounds.meridian.AtoB.minAccept = 20500;
+    if (this.state.bounds.cascadia?.BtoC) this.state.bounds.cascadia.BtoC.minAccept = 6500;
+    if (this.state.termSheets.cascadia?.T4) {
+      this.state.termSheets.cascadia.T4.class = this.demoPickChoice(["like_to_have", "prefer_not"]);
+    }
+  },
+
+  async bracketsCompleteAll() {
+    if (this.remote.active) return;
+    if (this.phaseIndex(this.state.phase) < this.phaseIndex("brackets")) await this.proceedToBrackets();
+    const max = SCENARIO.protocol.maxRounds;
+    while (this.state.round < max && !this.state.lastSignals?.feasible) {
+      if (this.state.round > 0) this.nudgeBoundsForOverlap();
+      await this.runRound();
+    }
+  },
+
+  async accordCompleteAll() {
+    if (this.remote.active) return;
+    if (!this.state.accord && this.state.lastSignals?.feasible) await this.assembleAccord();
+    await this.signAccordAll();
   },
 
   async signAccordAll() {
@@ -1128,7 +1210,7 @@ const App = {
        model slots - and the pattern to notice is the same for all of them: the output is
        <b>advisory</b>, identical to every party, and legally inert until the human neutral adopts it
        as a recorded, signed act. The model proposes structure; it never owns it.`,
-      `as <b>Neutral</b>, adopt the decomposition to open Present.`);
+      `use <b>Complete structure</b> in the banner above (adopt/reject is chosen at random for the demo).`);
     const d = this.state.s1.output;
     let inner = d ? `<table class="tbl"><tr><th>element</th><th>issue</th></tr>
       ${d.elements.map((e) => `<tr><td><code>${e.id}</code></td><td>${e.text}</td></tr>`).join("")}</table>
@@ -1156,7 +1238,7 @@ const App = {
        hashed <code>preparation_disclosure</code>: what tool, what class of use, which human supervised
        it. The neutral reads materials knowing their preparation history; undisclosed use discovered
        later is a sanctionable protocol breach the parties agreed to in advance.`,
-      `browse case files, then as <b>Neutral</b> release the facts phase.`);
+      `browse case files, then click <b>Release to facts</b> in the banner above.`);
     const cards = SCENARIO.parties.map((p) => {
       const rows = p.caseFile.map((a) => {
         const d = a.disclosure;
@@ -1187,7 +1269,7 @@ const App = {
        cited to that party's own artifacts. The content is chambers-private; the <i>existence</i> of
        every query (who was asked about, query hash, answer hash, time) is public to all parties, so
        equal treatment is auditable without exposing judicial thinking.`,
-      `as <b>Neutral</b>: designate questions, adopt findings, try inquiry, then release brackets.`);
+      `use <b>Complete facts for all</b> in the banner above (each adopt/reject is randomized), then release brackets.`);
     const qRows = SCENARIO.s2Questions.map((q) => {
       const rec = this.state.s2.find((x) => x.id === q.id);
       let status;
@@ -1217,7 +1299,7 @@ const App = {
       `The negotiation core: a <b>sealed-bid mechanism over private constraints</b>. Each round decrypts
        bounds and term sheets, checks ZOPA overlap per obligation and hard-term package feasibility, and
        releases <i>only signals</i>. Parties may revise bounds and soft term postures between rounds.`,
-      `run bracket rounds; revise bounds/terms between rounds until signals show full overlap. Optional: <b>Remote play</b> for a slow guided pass.`);
+      `use <b>Run brackets to agreement</b> in the banner above, or revise bounds manually via <b>Viewing as</b> a carrier.`);
     let body;
     if (kind === "party") {
       const p = SCENARIO.parties.find((x) => x.id === this.role);
@@ -1277,7 +1359,7 @@ const App = {
        effect only when every carrier signs its digest with its own key (real ECDSA keys generated in
        this browser session - the instrument holds none of them). On completion, a process-shaped
        outcome signal feeds the longitudinal protocol ledger.`,
-      `each carrier signs via <b>Viewing as</b>, or use <b>Sign for all</b> in the banner above. Or use <b>Remote play</b> for a slow guided walkthrough.`);
+      `use <b>Complete accord for all</b> in the banner above to assemble (if needed) and sign.`);
     const a = this.state.accord;
     if (!a) return g + `<div class="card"><h3>Accord</h3><p>No proposal assembled.</p></div>`;
     const allocRows = Object.entries(a.allocation).map(([oblId, amt]) => {

@@ -874,7 +874,16 @@ const App = {
       in the room. The instrument lets opposing sides discover whether agreement is possible <b>without ever
       revealing positions, sacred terms, or preferences to each other or to any operator</b>, while the
       appointed neutral retains every act of judgment, and the entire proceeding produces a record any court,
-      auditor, or regulator can verify independently - years later, with free tools, trusting no one's database.</p>
+      auditor, or regulator can verify independently - years later, with <b>free, offline-capable tools</b>
+      (<code>python3</code>, <code>openssl</code>, the open Aqua SDK) - <b>trusting no vendor's database</b>
+      as the source of truth.</p>
+      <p class="lede"><b>Local-first, offline-operable.</b> The reference application is a static bundle you run
+      locally (<code>./start.sh</code>) - chambers, air-gapped review, or field use - with no network required
+      to walk a matter or verify the record on the machine in front of you. When connectivity returns, the
+      Pathways-encoded <b>sync and notification profile</b> governs what replicates and when: strategic
+      prioritization (existence signals and phase gates before payload), notification workflows parties adopt
+      by hash, and reconciliation steps compiled into the procedure - not an ad hoc cloud sync policy.
+      <b>This running demo is fully offline; the sync profile is specified for the compiled build.</b></p>
     </div>
 
     <div class="card"><h3>Where this applies</h3>
@@ -1001,9 +1010,16 @@ const App = {
           recorded human gates.</td></tr>
         <tr><td><b>A record that outlives everyone.</b> The surviving artifact - adopted structure, findings,
           disclosure ledgers, term-screen events, the accord - verifies offline with open tools. No subpoena
-          target, no vendor dependency, no "trust our logs."</td>
+          target, no vendor dependency, no "trust our logs" - and no requirement to stay online to prove what ran.</td>
           <td>Aqua Protocol attestation trees: tamper-evident, portable revision history for the procedure and
-          the run.</td></tr>
+          the run; exportable and checkable without the operator's database.</td></tr>
+        <tr><td><b>Local-first operation with Pathways-encoded sync.</b> Run the reference application entirely
+          offline from a static bundle; walk matters, seal intake, and verify the hash-chained record with no
+          network. When parties reconnect, a compiled sync-and-notification profile prioritizes what moves first
+          (existence and gate events before sealed payload), routes human-gated releases, and reconciles
+          divergent copies by the procedure the parties adopted - not a vendor's default cloud policy.</td>
+          <td>Static reference app (<code>start.sh</code>) today; Pathways workflow templates for offline
+          operation, strategic sync prioritization, and notification/reconciliation in the compiled build.</td></tr>
         <tr><td><b>Procedures that improve like products.</b> Every matter emits process statistics (rounds,
           durations, settlement rates, term-profile counts - never party data), aggregated by procedure
           version. Forums learn which procedural designs actually settle matters, and procedure authors earn
@@ -1042,6 +1058,8 @@ const App = {
       <p class="kv">Figures above are industry-scale estimates for orientation, deliberately conservative and
       hedged; the pilot design in step 1 exists precisely to replace estimates with the instrument's own
       measured evidence.</p>
+      <p class="kv"><b>Run it locally:</b> clone the demo repo and <code>./start.sh</code> for a fully offline
+      walkthrough; the GitHub Pages deploy is the same bytes, useful when you want a link rather than a local bundle.</p>
     </div>
 
     <div class="card"><h3>Where to go next</h3>

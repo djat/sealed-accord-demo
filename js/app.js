@@ -986,8 +986,9 @@ const App = {
           profile governs what replicates and when - strategic prioritization and reconciliation compiled
           into the procedure, not an ad hoc cloud policy.</li>
       </ul>
-      <p class="lede kv"><b>This running demo is fully offline;</b> the sync profile is specified for the
-      compiled build.</p>
+      <p class="lede kv"><b>No data leaves this page.</b> All computation runs locally in your browser - no
+      request reaches any Lit or third-party API. (The sync and notification profile is specified for the
+      compiled build, not this hosted demo.)</p>
     </div>
 
     <div class="card"><h3>Where this applies</h3>

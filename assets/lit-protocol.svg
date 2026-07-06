@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 44" role="img" aria-label="Lit Protocol">
+  <circle cx="18" cy="22" r="14" fill="#F7931A" opacity=".15"/>
+  <circle cx="18" cy="22" r="7" fill="#F7931A"/>
+  <text x="36" y="29" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700" fill="currentColor">Lit</text>
+  <text x="68" y="29" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="currentColor" opacity=".72">Protocol</text>
+</svg>

@@ -797,6 +797,56 @@ const App = {
     return `<div class="guide"><h4>${title}</h4><p>${body}</p>${next ? `<p class="next"><b>Next:</b> ${next}</p>` : ""}</div>`;
   },
 
+  renderExecPartnershipPlug() {
+    return `<div class="card partnership-plug">
+      <div class="partnership-head">
+        <p class="partnership-kicker">Joint demonstration project</p>
+        <div class="partnership-logos">
+          <a class="partnership-logo" href="https://litprotocol.com/" target="_blank" rel="noopener noreferrer"
+             title="Lit Protocol">
+            <img src="assets/lit-protocol.svg" alt="Lit Protocol" width="180" height="44" /></a>
+          <span class="partnership-x" aria-hidden="true">×</span>
+          <a class="partnership-logo" href="https://tesseractstakes.com/pathways" target="_blank" rel="noopener noreferrer"
+             title="Tesseract Pathways">
+            <img src="assets/tesseract-pathways.svg" alt="Tesseract Pathways" width="220" height="44" /></a>
+        </div>
+        <h3>Lit confidential execution × Pathways orchestration</h3>
+        <p class="partnership-lede">Sealed Accord shows what happens when you compose them: Pathways publishes
+        the settlement procedure parties adopt by hash; Lit Chipotle runs the sealed math over secrets inside
+        an attested enclave. Neither stack alone delivers confidential multi-party discovery with a human
+        neutral, a verifiable record, and procedures that cannot drift mid-matter.</p>
+      </div>
+      <div class="plug-grid plug-marketing">
+        <a class="plug-card plug-lit" href="https://spark.litprotocol.com/introducing-lit-protocol-v3-chipotle/"
+           target="_blank" rel="noopener noreferrer">
+          <span class="plug-tag">Lit · Chipotle</span>
+          <h4>Confidential compute you can call over HTTP</h4>
+          <p class="plug-hook">The execution layer: run code in a verified TEE, sign and decrypt with keys
+          that never leave the enclave - through a simple REST API any workflow or agent can use.</p>
+          <ul class="plug-unique">
+            <li><b>What's unique:</b> no SDK maze - authenticate and POST; the program's content hash <i>is</i> its signing identity</li>
+            <li>On-chain key management with scoped groups - fine-grained permission without custom wiring</li>
+            <li>Faster, cheaper single-enclave execution built for agents and HTTP-native automation</li>
+          </ul>
+          <span class="plug-cta">Introducing Lit v3 Chipotle →</span>
+        </a>
+        <a class="plug-card plug-pathways" href="https://tesseractstakes.com/pathways"
+           target="_blank" rel="noopener noreferrer">
+          <span class="plug-tag">Tesseract · Pathways</span>
+          <h4>Procedures you adopt, not software you trust</h4>
+          <p class="plug-hook">The orchestration layer: versioned, forkable process templates with gate profiles,
+          human judgment boundaries, and offline-verifiable collaboration bundles.</p>
+          <ul class="plug-unique">
+            <li><b>What's unique:</b> the settlement protocol is a published template with license terms - adopted by hash before anything is disclosed</li>
+            <li>Autonomy bands and non-delegable acts keep judgment with the neutral; arithmetic stays replay-provable</li>
+            <li>Local-first operation with Pathways-encoded sync, notification, and reconciliation workflows</li>
+          </ul>
+          <span class="plug-cta">Explore Pathways →</span>
+        </a>
+      </div>
+    </div>`;
+  },
+
   renderStackPlug() {
     return `<div class="card plug-section"><h3>Built on open stacks</h3>
       <p class="sub">Sealed Accord is a composed demonstration: Pathways publishes the procedure; Lit Chipotle
@@ -1099,7 +1149,7 @@ const App = {
       design), and thirteen pre-registered, falsifiable hypotheses.</p>
     </div>
 
-    ${this.renderStackPlug()}
+    ${this.renderExecPartnershipPlug()}
 
     <div class="card"><h3>Open the demo</h3>
       <ul class="entry-links">

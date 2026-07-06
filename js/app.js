@@ -876,14 +876,12 @@ const App = {
       appointed neutral retains every act of judgment, and the entire proceeding produces a record any court,
       auditor, or regulator can verify independently - years later, with <b>free, offline-capable tools</b>
       (<code>python3</code>, <code>openssl</code>, the open Aqua SDK) - <b>trusting no vendor's database</b>
-      as the source of truth.</p>
-      <p class="lede"><b>Local-first, offline-operable.</b> The reference application is a static bundle you run
-      locally (<code>./start.sh</code>) - chambers, air-gapped review, or field use - with no network required
-      to walk a matter or verify the record on the machine in front of you. When connectivity returns, the
-      Pathways-encoded <b>sync and notification profile</b> governs what replicates and when: strategic
-      prioritization (existence signals and phase gates before payload), notification workflows parties adopt
-      by hash, and reconciliation steps compiled into the procedure - not an ad hoc cloud sync policy.
-      <b>This running demo is fully offline; the sync profile is specified for the compiled build.</b></p>
+      as the source of truth. The reference application is a <b>local-first, offline-operable</b> static bundle
+      (<code>./start.sh</code>) for chambers, air-gapped review, or field use; when connectivity returns, a
+      Pathways-encoded <b>sync and notification profile</b> governs what replicates and when - strategic
+      prioritization, existence-before-payload notifications, and reconciliation compiled into the procedure,
+      not an ad hoc cloud policy (<b>this running demo is fully offline; the sync profile is specified for the
+      compiled build</b>).</p>
     </div>
 
     <div class="card"><h3>Where this applies</h3>

@@ -804,15 +804,15 @@ const App = {
         <div class="partnership-logos">
           <a class="partnership-logo" href="https://litprotocol.com/" target="_blank" rel="noopener noreferrer"
              title="Lit Protocol">
-            <img src="assets/lit-protocol.svg" alt="Lit Protocol" width="180" height="44" /></a>
+            <img src="assets/lit-protocol.svg" alt="Lit Protocol" width="210" height="46" /></a>
           <span class="partnership-x" aria-hidden="true">×</span>
           <a class="partnership-logo" href="https://tesseractstakes.com/pathways" target="_blank" rel="noopener noreferrer"
              title="Tesseract Pathways">
-            <img src="assets/tesseract-pathways.svg" alt="Tesseract Pathways" width="220" height="44" /></a>
+            <img src="assets/tesseract-pathways.svg" alt="Tesseract Pathways" width="260" height="46" /></a>
           <span class="partnership-x" aria-hidden="true">×</span>
           <a class="partnership-logo" href="https://aqua-protocol.org/" target="_blank" rel="noopener noreferrer"
              title="Aqua Protocol">
-            <img src="assets/aqua-protocol.svg" alt="Aqua Protocol" width="200" height="44" /></a>
+            <img src="assets/aqua-protocol.svg" alt="Aqua Protocol" width="230" height="48" /></a>
         </div>
         <h3>Lit execution × Pathways orchestration × Aqua attestation</h3>
         <p class="partnership-lede">Sealed Accord shows what happens when you compose all three: Pathways publishes

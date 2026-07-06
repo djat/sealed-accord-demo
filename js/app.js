@@ -868,20 +868,24 @@ const App = {
       appoint (the protocol's canonical term for whoever holds the gavel). The software keeps positions sealed;
       it does not run the case.</p>
       <p class="lede">Sealed Accord is a working demonstration of a new category of dispute-resolution
-      infrastructure for <b>complex, high-stakes, multi-party negotiations</b> - the kind where several
-      sophisticated organizations must agree on money, obligations, and non-numeric terms at once, each
-      holding private reservation values and walk-away conditions they cannot safely disclose to anyone else
-      in the room. The instrument lets opposing sides discover whether agreement is possible <b>without ever
-      revealing positions, sacred terms, or preferences to each other or to any operator</b>, while the
-      appointed neutral retains every act of judgment, and the entire proceeding produces a record any court,
-      auditor, or regulator can verify independently - years later, with <b>free, offline-capable tools</b>
-      (<code>python3</code>, <code>openssl</code>, the open Aqua SDK) - <b>trusting no vendor's database</b>
-      as the source of truth. The reference application is a <b>local-first, offline-operable</b> static bundle
-      (<code>./start.sh</code>) for chambers, air-gapped review, or field use; when connectivity returns, a
-      Pathways-encoded <b>sync and notification profile</b> governs what replicates and when - strategic
-      prioritization, existence-before-payload notifications, and reconciliation compiled into the procedure,
-      not an ad hoc cloud policy (<b>this running demo is fully offline; the sync profile is specified for the
-      compiled build</b>).</p>
+      infrastructure for <b>complex, high-stakes, multi-party negotiations</b> - several sophisticated
+      organizations agreeing on money, obligations, and non-numeric terms at once, each holding private
+      reserves and walk-away conditions they cannot safely disclose to anyone else in the room.</p>
+      <ul class="ov-lede-points">
+        <li><b>Sealed discovery.</b> Opposing sides learn whether agreement is possible <b>without ever
+          revealing positions, sacred terms, or preferences</b> to each other or to any operator.</li>
+        <li><b>Judgment stays human.</b> The appointed neutral retains every act of judgment; the software
+          handles sealed math and record-keeping, not the case.</li>
+        <li><b>Verify without a vendor database.</b> The full record is checkable years later with
+          <b>free, offline-capable tools</b> (<code>python3</code>, <code>openssl</code>, the open Aqua SDK) -
+          no operator's database as the source of truth.</li>
+        <li><b>Local-first, Pathways-synced.</b> Run the reference app entirely offline
+          (<code>./start.sh</code>); when connectivity returns, a Pathways-encoded sync and notification
+          profile governs what replicates and when - strategic prioritization and reconciliation compiled
+          into the procedure, not an ad hoc cloud policy.</li>
+      </ul>
+      <p class="lede kv"><b>This running demo is fully offline;</b> the sync profile is specified for the
+      compiled build.</p>
     </div>
 
     <div class="card"><h3>Where this applies</h3>

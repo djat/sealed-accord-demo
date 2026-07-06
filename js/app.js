@@ -67,8 +67,8 @@ const App = {
       document.documentElement.dataset.theme = next;
       localStorage.setItem("sa-theme", next);
     });
-    // Page navigation: Overview | Run the demo.
-    document.getElementById("pageNav").addEventListener("click", (e) => {
+    // Page navigation: brand home + overview tabs.
+    document.querySelector(".topbar").addEventListener("click", (e) => {
       const b = e.target.closest("[data-page]");
       if (!b) return;
       this.goPage(b.dataset.page);
@@ -1022,7 +1022,7 @@ const App = {
       binding constraint carriers will never upload to a counterparty's tool. If the instrument is credible here,
       it is credible anywhere the same information geometry appears - including wherever institutions must settle
       with each other <i>on behalf of</i> people who need claims closed and capital moving again.</p>
-      <table class="tbl">
+      <table class="tbl tbl-stack cols-plain">
         <tr><td><b>High volume, low drama</b></td><td>Money-only disputes between sophisticated repeat players; no custody, no injunctions, no jury appeal. U.S. intercompany arbitration forums already process on the order of half a million to a million filings a year - structured resolution is the industry norm, not a provocation.</td></tr>
         <tr><td><b>Downstream public benefit</b></td><td>In a shared-loss matter, policyholders have usually already been paid by their own carrier - but until carriers agree who ultimately bears the loss, reserves stay contested, files stay open, and the system keeps spending adjuster and forum time instead of releasing capital back to the claim economy. Intercompany arbitration is already a <i>cooperative</i> venue: carriers jointly maintaining procedures they all route high-volume disputes through. Faster honest convergence is a modest but real collective benefit to the customers and communities those carriers serve.</td></tr>
         <tr><td><b>Real money in aggregate</b></td><td>U.S. property-casualty premiums run near a trillion dollars annually; industry estimates put subrogation recoveries moving between carriers in the tens of billions per year. Shaving rounds and cycle time off a high-volume flow is worth real margin.</td></tr>
@@ -1068,7 +1068,7 @@ const App = {
     </div>
 
     <div class="card"><h3>What is genuinely new here</h3>
-      <table class="tbl">
+      <table class="tbl tbl-stack cols-capability">
         <tr><th>Capability</th><th>What makes it possible</th></tr>
         <tr><td><b>Early ruling on what cannot proceed.</b> A minimal pass before brackets surfaces matters
           that must be ruled in advance - unlawful sealed conditions, joint structural blockers, postures
@@ -1223,8 +1223,7 @@ const App = {
       Lit Action and the two identity systems fuse.</b> Pathways derives lineage, licensing, and gate
       posture from template content; Lit derives a signer from code content. After compilation, one hash
       chain carries both:</p>
-      <table class="tbl">
-        <tr><th>Property</th><th>How the fusion delivers it</th></tr>
+      <table class="tbl tbl-stack cols-property">
         <tr><td>The procedure cannot drift mid-matter</td><td>The escrow pins the compiled CID's signer. A quietly modified protocol is not a compliance failure - it is a <b>key mismatch</b> the settlement rail refuses.</td></tr>
         <tr><td>Policy is inside the trust anchor</td><td>Gate registers - budget caps, phase gates, the neutral's viewing scope - compile to constants in the action source. Part of the CID, hence part of the signer. Stripping a gate is a visible key event, not a metadata edit.</td></tr>
         <tr><td>Weakened forks are self-announcing</td><td>Fork the protocol, change any register → new CID → new signer → every contract pinned to the parent refuses it, and the Aqua lineage shows exactly what changed.</td></tr>
@@ -1233,8 +1232,7 @@ const App = {
     </div>
 
     <div class="card"><h3>Each system supplies what the others lack</h3>
-      <table class="tbl">
-        <tr><th>Gap</th><th>Closed by</th></tr>
+      <table class="tbl tbl-stack cols-gap">
         <tr><td>A pathway run proves what was <i>recorded</i>, not what actually <i>executed</i></td><td>Lit: TEE attestation + CID-pinned code - a stranger can verify the runtime itself, not just the operator's word</td></tr>
         <tr><td>Pathway <code>license_terms</code> / <code>royalty_split</code> have no native payment rail</td><td>Lit: PKP wallets + on-chain verification at escrow settlement</td></tr>
         <tr><td>Secrets and matter documents need custody stronger than "the server's disk"</td><td>Lit: PKP-derived encryption - plaintext exists only inside permitted actions, in-enclave</td></tr>
@@ -1245,8 +1243,7 @@ const App = {
     </div>
 
     <div class="card"><h3>What this demo proves, concretely</h3>
-      <table class="tbl">
-        <tr><th></th><th>Claim</th><th>See it</th></tr>
+      <table class="tbl tbl-stack cols-claim">
         <tr><td>1</td><td><b>Shared discovery over private information.</b> Three carriers find a zone of possible agreement through sealed bracket rounds - full intake packages (bounds + term sheets) encrypted, never rendered to any other role. Only overlap/feasibility signals and coarse distance bands leave the sealed boundary; early-ruling passes surface untenable postures before rounds accrue.</td><td>Intake + Brackets phases; switch roles to verify nothing leaks</td></tr>
         <tr><td>2</td><td><b>Deterministic vs. model-assisted work is structurally separated - and provable.</b> Every step declares a boundary class. The settlement arithmetic replays byte-identically from hashed inputs (reproducibility signatures); model use is confined to designated, labeled, advisory slots.</td><td>Developer overlay → Pathway steps + Compiled action → replay check</td></tr>
         <tr><td>3</td><td><b>The neutral holds every act of judgment.</b> Adopting the case structure, designating fact-checks, adopting or rejecting each finding, releasing phases, deciding on impasse - all recorded human acts. The neutral also gets a private, recorded inquiry channel into each party's case file: content chambers-private, existence public.</td><td>Structure, Facts phases as the Neutral; inquiry panel</td></tr>

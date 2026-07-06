@@ -116,6 +116,12 @@ a { color: var(--accent2); }
   padding: 14px 22px; border-bottom: 1px solid var(--line); background: var(--panel);
 }
 .brand { display: flex; gap: 14px; align-items: center; }
+.brand-home {
+  border: none; background: transparent; padding: 0; margin: 0;
+  cursor: pointer; text-align: left; color: inherit; font: inherit;
+}
+.brand-home:hover { opacity: .92; }
+.brand-home:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; border-radius: 8px; }
 .brand-mark {
   width: 40px; height: 40px; display: grid; place-items: center;
   background: linear-gradient(160deg, #5b9fd4, #1d5aa6);
@@ -287,6 +293,8 @@ a { color: var(--accent2); }
 table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0; }
 table.tbl th, table.tbl td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
 table.tbl th { color: var(--muted); font-weight: 600; font-size: 12px; }
+table.tbl td { word-wrap: break-word; overflow-wrap: anywhere; }
+table.tbl code { word-break: break-word; }
 
 .badge {
   display: inline-block; font-size: 10.5px; padding: 2px 9px; border-radius: 10px;
@@ -347,3 +355,66 @@ table.tbl th { color: var(--muted); font-weight: 600; font-size: 12px; }
 .ov-pillar p { margin: 0; font-size: 12.5px; color: var(--muted); }
 .ov-q { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); }
 @media (max-width: 1200px) { .dev-panel { width: 400px; } .two-col, .ov-grid { grid-template-columns: 1fr; } }
+
+/* Mobile: stack narrative tables, tighten chrome, scroll wide data tables. */
+@media (max-width: 680px) {
+  .topbar { padding: 12px 14px; gap: 12px; }
+  .brand h1 { font-size: 17px; }
+  .tagline { font-size: 11.5px; line-height: 1.35; }
+  .topbar-right { width: 100%; gap: 8px; }
+  .pagenav { width: 100%; }
+  .page-tab { flex: 1 1 auto; padding: 7px 10px; font-size: 12.5px; text-align: center; }
+  .stub-banner { display: none; }
+  .stage { padding: 14px 14px 48px; }
+  .card { padding: 14px 14px; margin-bottom: 14px; }
+  .card h3 { font-size: 15px; line-height: 1.35; }
+  .ov-hero h2 { font-size: 20px; }
+  .ov-hero .lede, .ov-hero .ov-sub { font-size: 14px; }
+  .ov-lede-points li { font-size: 13.5px; padding-left: 12px; }
+  .partnership-plug h3 { font-size: 17px; }
+  .partnership-lede { font-size: 13.5px; text-align: left; }
+  .partnership-head { text-align: left; max-width: none; }
+  .partnership-x { display: none; }
+  .partnership-logos { justify-content: flex-start; gap: 12px; }
+  .plug-marketing .plug-card { padding: 14px 14px; }
+  .rolebar { padding: 8px 14px; gap: 8px; }
+  .phase-chip { margin-left: 0; width: 100%; }
+  .bounds-grid { grid-template-columns: 1fr; }
+  .foot { padding: 12px 14px; font-size: 11px; }
+
+  /* Wide matter/demo tables: horizontal scroll instead of crushing columns. */
+  .card > table.tbl:not(.tbl-stack) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .card > table.tbl:not(.tbl-stack) tr { display: table; width: 100%; table-layout: auto; }
+  .card > table.tbl:not(.tbl-stack) th,
+  .card > table.tbl:not(.tbl-stack) td { white-space: normal; min-width: 120px; }
+
+  /* Narrative overview tables: one card per row. */
+  table.tbl.tbl-stack { display: block; border: 0; margin: 0; }
+  table.tbl.tbl-stack tr { display: block; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); }
+  table.tbl.tbl-stack:not(.cols-plain) tr:first-child { display: none; }
+  table.tbl.tbl-stack td { display: block; width: 100%; box-sizing: border-box; padding: 12px 14px; border: 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.5; }
+  table.tbl.tbl-stack td:last-child { border-bottom: 0; }
+  table.tbl.tbl-stack.cols-plain td:first-child,
+  table.tbl.tbl-stack td:first-child { background: var(--panel2); }
+  table.tbl.tbl-stack td::before {
+    display: block; margin-bottom: 6px; font-size: 10.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+  }
+  table.tbl.tbl-stack.cols-capability td:nth-child(1)::before { content: "Capability"; }
+  table.tbl.tbl-stack.cols-capability td:nth-child(2)::before { content: "What makes it possible"; }
+  table.tbl.tbl-stack.cols-property td:nth-child(1)::before { content: "Property"; }
+  table.tbl.tbl-stack.cols-property td:nth-child(2)::before { content: "How the fusion delivers it"; }
+  table.tbl.tbl-stack.cols-gap td:nth-child(1)::before { content: "Gap"; }
+  table.tbl.tbl-stack.cols-gap td:nth-child(2)::before { content: "Closed by"; }
+  table.tbl.tbl-stack.cols-claim td:nth-child(1)::before { content: "Claim #"; }
+  table.tbl.tbl-stack.cols-claim td:nth-child(2)::before { content: "Claim"; }
+  table.tbl.tbl-stack.cols-claim td:nth-child(3)::before { content: "See it"; }
+  table.tbl.tbl-stack.cols-claim td:nth-child(1) { font-weight: 700; font-family: var(--mono); color: var(--accent); }
+  table.tbl.tbl-stack.cols-plain td::before { display: none; }
+}

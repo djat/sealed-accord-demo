@@ -848,6 +848,19 @@ const App = {
           </ul>
           <span class="plug-cta">Explore Pathways →</span>
         </a>
+        <a class="plug-card plug-aqua" href="https://aqua-protocol.org/"
+           target="_blank" rel="noopener noreferrer">
+          <span class="plug-tag">Aqua · Protocol</span>
+          <h4>A record anyone can verify - years later, offline</h4>
+          <p class="plug-hook">The attestation layer: tamper-evident revision trees for templates <i>and</i> runs -
+          genesis, forks, signed deltas - exportable JSON any auditor checks with the open SDK.</p>
+          <ul class="plug-unique">
+            <li><b>What's unique:</b> verifier-portable lineage - prove which procedure version ran without trusting an operator's database</li>
+            <li>Template and run history in one portable chain; fork economics visible in the tree itself</li>
+            <li>Offline verification with free tools - the surviving record is the protocol's record</li>
+          </ul>
+          <span class="plug-cta">Aqua Protocol →</span>
+        </a>
       </div>
     </div>`;
   },
@@ -857,7 +870,7 @@ const App = {
       <p class="sub">Sealed Accord is a composed demonstration: Pathways publishes the procedure; Lit Chipotle
       executes it over secrets; Aqua attests the lineage. If you want to go deeper into the runtime and
       orchestration layers this demo assumes, start here:</p>
-      <div class="plug-grid">
+      <div class="plug-grid plug-three">
         <a class="plug-card plug-primary" href="https://spark.litprotocol.com/introducing-lit-protocol-v3-chipotle/"
            target="_blank" rel="noopener noreferrer">
           <span class="plug-tag">Execution · start here</span>
@@ -873,6 +886,14 @@ const App = {
           <p>Versioned, forkable process templates - workflows, methodologies, protocols - with step provenance,
           gate profiles, license terms, and the collaboration-bundle technique this demo is delivered in.</p>
           <span class="plug-cta">Explore Pathways →</span>
+        </a>
+        <a class="plug-card plug-aqua" href="https://aqua-protocol.org/"
+           target="_blank" rel="noopener noreferrer">
+          <span class="plug-tag">Attestation</span>
+          <h4>Aqua Protocol</h4>
+          <p>Tamper-evident revision trees for templates and runs - genesis, forks, signed deltas - verified
+          offline with the open SDK. The surviving record is the protocol's record, not a vendor database.</p>
+          <span class="plug-cta">Aqua Protocol →</span>
         </a>
       </div>
     </div>`;

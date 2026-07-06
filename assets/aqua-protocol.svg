@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 44" role="img" aria-label="Aqua Protocol">
+  <circle cx="16" cy="22" r="12" fill="#2BA89A" opacity=".18"/>
+  <path d="M16 10 C20 16, 24 20, 16 34 C8 20, 12 16, 16 10 Z" fill="#2BA89A"/>
+  <text x="34" y="29" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="currentColor">Aqua</text>
+  <text x="82" y="29" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="currentColor" opacity=".72">Protocol</text>
+</svg>

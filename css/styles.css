@@ -88,7 +88,9 @@ a { color: var(--accent2); }
 .partnership-plug h3 { margin: 0 0 10px; font-size: 20px; text-align: center; }
 .partnership-lede { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; text-align: center; }
 .plug-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.plug-grid.plug-three { grid-template-columns: repeat(3, 1fr); }
 .plug-marketing .plug-card { padding: 18px 20px; }
+.plug-card.plug-aqua { border-top: 3px solid #2BA89A; }
 .plug-card {
   display: block; text-decoration: none; color: inherit;
   background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
@@ -106,6 +108,7 @@ a { color: var(--accent2); }
 .plug-unique li:last-child { margin-bottom: 0; }
 .plug-card p { margin: 0 0 12px; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
 .plug-cta { display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent2); }
+@media (max-width: 1100px) { .plug-grid.plug-three { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .plug-grid { grid-template-columns: 1fr; } .partnership-logo img { height: 30px; } }
 
 .topbar {

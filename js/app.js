@@ -809,14 +809,19 @@ const App = {
           <a class="partnership-logo" href="https://tesseractstakes.com/pathways" target="_blank" rel="noopener noreferrer"
              title="Tesseract Pathways">
             <img src="assets/tesseract-pathways.svg" alt="Tesseract Pathways" width="220" height="44" /></a>
+          <span class="partnership-x" aria-hidden="true">×</span>
+          <a class="partnership-logo" href="https://aqua-protocol.org/" target="_blank" rel="noopener noreferrer"
+             title="Aqua Protocol">
+            <img src="assets/aqua-protocol.svg" alt="Aqua Protocol" width="200" height="44" /></a>
         </div>
-        <h3>Lit confidential execution × Pathways orchestration</h3>
-        <p class="partnership-lede">Sealed Accord shows what happens when you compose them: Pathways publishes
+        <h3>Lit execution × Pathways orchestration × Aqua attestation</h3>
+        <p class="partnership-lede">Sealed Accord shows what happens when you compose all three: Pathways publishes
         the settlement procedure parties adopt by hash; Lit Chipotle runs the sealed math over secrets inside
-        an attested enclave. Neither stack alone delivers confidential multi-party discovery with a human
-        neutral, a verifiable record, and procedures that cannot drift mid-matter.</p>
+        an attested enclave; Aqua gives templates and runs a tamper-evident history any stranger can verify
+        offline. No single stack alone delivers confidential multi-party discovery, human judgment, and a
+        record that outlives every vendor.</p>
       </div>
-      <div class="plug-grid plug-marketing">
+      <div class="plug-grid plug-marketing plug-three">
         <a class="plug-card plug-lit" href="https://spark.litprotocol.com/introducing-lit-protocol-v3-chipotle/"
            target="_blank" rel="noopener noreferrer">
           <span class="plug-tag">Lit · Chipotle</span>

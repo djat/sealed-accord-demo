@@ -816,7 +816,7 @@ const App = {
         </div>
         <h3>Lit execution × Pathways orchestration × Aqua attestation</h3>
         <p class="partnership-lede">Sealed Accord shows what happens when you compose all three: Pathways publishes
-        the settlement procedure parties adopt by hash; Lit Chipotle runs the sealed math over secrets inside
+        the negotiation procedure parties adopt by hash; Lit Chipotle runs the sealed math over secrets inside
         an attested enclave; Aqua gives templates and runs a tamper-evident history any stranger can verify
         offline. No single stack alone delivers confidential multi-party discovery, human judgment, and a
         record that outlives every vendor.</p>
@@ -842,7 +842,7 @@ const App = {
           <p class="plug-hook">The orchestration layer: versioned, forkable process templates with gate profiles,
           human judgment boundaries, and offline-verifiable collaboration bundles.</p>
           <ul class="plug-unique">
-            <li><b>What's unique:</b> the settlement protocol is a published template with license terms - adopted by hash before anything is disclosed</li>
+            <li><b>What's unique:</b> the negotiation protocol is a published template with license terms - adopted by hash before anything is disclosed</li>
             <li>Autonomy bands and non-delegable acts keep judgment with the neutral; arithmetic stays replay-provable</li>
             <li>Local-first operation with Pathways-encoded sync, notification, and reconciliation workflows</li>
           </ul>
@@ -965,7 +965,7 @@ const App = {
   viewExecOverview() {
     return `
     <div class="ov-hero">
-      <h2>A confidential deal room for multi-party settlement</h2>
+      <h2>A confidential deal room for multi-party negotiation</h2>
       <p class="ov-sub">Presided by a <b>neutral</b> — an independent mediator, arbitrator, or judge the disputants
       appoint (the protocol's canonical term for whoever holds the gavel). The software keeps positions sealed;
       it does not run the case.</p>
@@ -1103,7 +1103,7 @@ const App = {
         <tr><td><b>Rules that cannot be bent mid-matter.</b> The procedure everyone agreed to - rounds, reveal
           rules, split formula, package-selection rule, term dictionary, the neutral's viewing scope - is
           frozen the moment it is adopted. Changing one word produces a detectably different procedure the
-          settlement rail refuses.</td>
+          negotiation rail refuses.</td>
           <td>The protocol compiles to content-addressed code whose fingerprint <i>is</i> its signing identity
           (Pathways templates × Lit action-identity signing).</td></tr>
         <tr><td><b>Provable, not promised, restraint on AI.</b> Every step is classed as arithmetic or judgment.
@@ -1144,7 +1144,7 @@ const App = {
       endorsement of process, never of outcomes - and earns per-matter fees as the procedure's steward. That
       committee attestation is also where the term dictionary and its legality bases are reviewed once, by
       lawyers, rather than improvised per matter.</p>
-      <p><b>3 - The procedure marketplace.</b> The settlement protocol is a forkable, versioned asset. The same
+      <p><b>3 - The procedure marketplace.</b> The negotiation protocol is a forkable, versioned asset. The same
       instrument, re-parameterized per claim class, extends to construction change-order and delay claims,
       reinsurance commutations, and M&amp;A earnout disputes - each fork carrying visible lineage, its own
       authorship economics, and comparable outcome data. Forums stop buying software and start
@@ -1202,7 +1202,7 @@ const App = {
         <p>Pathways makes every multi-agent process - workflow, methodology, protocol - a
         <b>versioned, addressable, forkable template</b> with step-level provenance, license terms that
         travel with it, and a normative authority-boundary system: autonomy bands, gate registers,
-        non-delegable acts. The settlement protocol you run here is not code someone operates at you;
+        non-delegable acts. The negotiation protocol you run here is not code someone operates at you;
         it is a published procedural agreement the parties adopt <i>by hash</i>.</p></div>
       <div class="ov-pillar"><span class="ov-q">Execution · Lit Chipotle</span>
         <h4>Was it actually that code, over those secrets?</h4>
@@ -1224,7 +1224,7 @@ const App = {
       posture from template content; Lit derives a signer from code content. After compilation, one hash
       chain carries both:</p>
       <table class="tbl tbl-stack cols-property">
-        <tr><td>The procedure cannot drift mid-matter</td><td>The escrow pins the compiled CID's signer. A quietly modified protocol is not a compliance failure - it is a <b>key mismatch</b> the settlement rail refuses.</td></tr>
+        <tr><td>The procedure cannot drift mid-matter</td><td>The escrow pins the compiled CID's signer. A quietly modified protocol is not a compliance failure - it is a <b>key mismatch</b> the negotiation rail refuses.</td></tr>
         <tr><td>Policy is inside the trust anchor</td><td>Gate registers - budget caps, phase gates, the neutral's viewing scope - compile to constants in the action source. Part of the CID, hence part of the signer. Stripping a gate is a visible key event, not a metadata edit.</td></tr>
         <tr><td>Weakened forks are self-announcing</td><td>Fork the protocol, change any register → new CID → new signer → every contract pinned to the parent refuses it, and the Aqua lineage shows exactly what changed.</td></tr>
         <tr><td>Authors are paid at the moment of value</td><td>The same contract that verifies the CID-derived signature splits a per-matter accord fee per the template's <code>royalty_split</code> - the first native settlement rail for procedural work product.</td></tr>
@@ -1290,7 +1290,7 @@ const App = {
   viewAdopt(kind) {
     const g = this.guide("Phase 1 of 7 - Adopt the procedure",
       `Nothing has been disclosed yet. Before any evidence or number moves, every carrier and the
-       neutral sign the <b>protocol hash</b> - the settlement procedure itself (phases, reveal rules,
+       neutral sign the <b>protocol hash</b> - the negotiation procedure itself (phases, reveal rules,
        split rule, term dictionary, model-use slots, the neutral's viewing scope) frozen as one
        content-addressed artifact.`,
       `switch <b>Viewing as</b> to each carrier and the neutral, click <b>Adopt protocol hash</b> for each,

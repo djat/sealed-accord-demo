@@ -797,6 +797,32 @@ const App = {
     return `<div class="guide"><h4>${title}</h4><p>${body}</p>${next ? `<p class="next"><b>Next:</b> ${next}</p>` : ""}</div>`;
   },
 
+  renderStackPlug() {
+    return `<div class="card plug-section"><h3>Built on open stacks</h3>
+      <p class="sub">Sealed Accord is a composed demonstration: Pathways publishes the procedure; Lit Chipotle
+      executes it over secrets; Aqua attests the lineage. If you want to go deeper into the runtime and
+      orchestration layers this demo assumes, start here:</p>
+      <div class="plug-grid">
+        <a class="plug-card plug-primary" href="https://spark.litprotocol.com/introducing-lit-protocol-v3-chipotle/"
+           target="_blank" rel="noopener noreferrer">
+          <span class="plug-tag">Execution · start here</span>
+          <h4>Lit Protocol v3 — Chipotle</h4>
+          <p>Confidential compute, programmable signing, and encryption over a standard REST API - Lit Actions
+          in attested TEEs, on-chain key management, scoped groups, and an integration surface agents and
+          HTTP-native workflows can call directly.</p>
+          <span class="plug-cta">Introducing Chipotle →</span>
+        </a>
+        <a class="plug-card" href="https://tesseractstakes.com/pathways" target="_blank" rel="noopener noreferrer">
+          <span class="plug-tag">Orchestration</span>
+          <h4>Pathways</h4>
+          <p>Versioned, forkable process templates - workflows, methodologies, protocols - with step provenance,
+          gate profiles, license terms, and the collaboration-bundle technique this demo is delivered in.</p>
+          <span class="plug-cta">Explore Pathways →</span>
+        </a>
+      </div>
+    </div>`;
+  },
+
   renderTermDictionary(readOnly = true) {
     const rows = SCENARIO.termDictionary.terms.map((t) => {
       const opts = t.kind === "choice"
@@ -1073,6 +1099,8 @@ const App = {
       design), and thirteen pre-registered, falsifiable hypotheses.</p>
     </div>
 
+    ${this.renderStackPlug()}
+
     <div class="card"><h3>Open the demo</h3>
       <ul class="entry-links">
         <li>${this.demoLink()} - browse phases with Back/Next, click any pill, act in each role</li>
@@ -1151,6 +1179,8 @@ const App = {
         <tr><td>6</td><td><b>Every run teaches the commons.</b> On completion, a process-shaped outcome signal (rounds, durations, adoption ratios - no PII, no positions) feeds a longitudinal ledger comparing protocol variants.</td><td>Developer overlay → Outcome signals</td></tr>
       </table>
     </div>
+
+    ${this.renderStackPlug()}
 
     <div class="card"><h3>How to explore</h3>
       <p><b>1.</b> Open <b>Run the demo</b> - use <b>Back</b> / <b>Next</b> and the phase pills to navigate. Switch <b>Viewing as</b> to see each role's view and take actions yourself.

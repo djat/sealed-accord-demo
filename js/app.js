@@ -22,7 +22,7 @@ const TERM_CLASS_BADGE = {
 
 const App = {
   role: "atlas",
-  page: "exec",
+  page: "narrative",
   viewPhase: "adopt",       // which phase the user is browsing (may differ from live progress)
   remote: { active: false, paused: false, complete: false, stepLabel: "" },
   state: {
@@ -947,6 +947,11 @@ const App = {
     document.getElementById("rolebar").style.display = this.page === "matter" ? "flex" : "none";
     if (this.page !== "matter") window.scrollTo(0, 0);
     const stage = document.getElementById("stage");
+    if (this.page === "narrative") {
+      stage.innerHTML = this.viewNarrative();
+      DevOverlay.render();
+      return;
+    }
     if (this.page === "exec") {
       stage.innerHTML = this.viewExecOverview();
       DevOverlay.render();
@@ -960,6 +965,207 @@ const App = {
     document.getElementById("phaseChip").textContent = `phase: ${this.state.phase} · viewing: ${this.viewPhase}`;
     stage.innerHTML = this.renderDemoControls() + this.renderPhaseSteps() + this.renderDependencyBanner() + this.renderPhase();
     DevOverlay.render();
+  },
+
+  viewNarrative() {
+    return `
+    <div class="narrative-cover">
+      <p class="narrative-kicker">Project narrative</p>
+      <h2>Sealed Accord: A New Infrastructure for Multi-Party Negotiation</h2>
+      <p class="sub">For practitioners of high-stakes negotiation and diplomacy</p>
+      <hr class="narrative-rule" />
+      <p class="narrative-byline">A plain-language companion to the <b>Executive Overview</b> and
+      <b>Technical Architecture</b> tabs.</p>
+      <p class="narrative-dl">Prefer a document? <a href="assets/SEALED_ACCORD_EXECUTIVE_SUMMARY.pdf" target="_blank" rel="noopener noreferrer">Download the printable PDF →</a></p>
+    </div>
+
+    <div class="card"><h3>The permanent problem with honest positions</h3>
+      <p>Every experienced negotiator has lived the same paradox. The party that reveals its true reservation
+      first loses the leverage needed to protect it. This is not a failure of goodwill or skill. It is the
+      rational response to an environment where disclosure is irreversible and information is power.</p>
+      <p>The tools the profession has developed over decades are all creative workarounds for one underlying
+      constraint, however different they look on the surface. Facilitated dialogue, shuttle diplomacy,
+      bracketed offers, structured deliberation, neutral evaluation: every one of them still requires some
+      form of disclosure as the price of progress. The side that reveals to the mediator has already reduced
+      its optionality. The side that withholds gains nothing from shared discovery. And the mediator, even the
+      most gifted one, must navigate by inference, intuition, and accumulated professional judgment rather
+      than fact.</p>
+      <p>In multi-party settings, the problem compounds. Three or more principals with intersecting
+      obligations, private coalitions, and information asymmetries running simultaneously in multiple
+      directions: here the traditional tools often fail not because they are misapplied but because no amount
+      of skill at the table can solve the disclosure problem. The zone of agreement can only be discovered by
+      disclosing enough to find it, and disclosing enough to find it destroys the leverage needed to settle
+      within it.</p>
+      <div class="pq"><p>This is not a skill problem. It is an infrastructure problem. <b>The room is built
+      wrong.</b></p></div>
+      <p>The same structure appears wherever multi-party negotiation is consequential. In multilateral treaty
+      negotiations, each delegation's true threshold rarely enters the room cleanly: the actual point below
+      which domestic ratification fails, the conditions that would trigger coalition collapse, the terms
+      whose absence is genuinely unacceptable. What negotiators disclose instead are the positions each party
+      calculates it can afford to reveal. Mediators become expert readers of body language and back-channel
+      rumor. Agreements are sometimes reached not because the zone of agreement was rigorously discovered, but
+      because enough time passed, enough political capital was spent, and enough trust accumulated that the
+      parties were finally willing to reveal enough to converge. Camp David, Oslo, the Iran nuclear track: each
+      found its own workaround. None solved the underlying problem.</p>
+      <p class="kv">The consequence is systematic: matters take longer than they need to, more of them fail
+      entirely, and the agreements that emerge are sometimes unstable because they were built on positions
+      rather than on the underlying constraint surfaces that actually governed what each party could accept.</p>
+    </div>
+
+    <div class="card"><h3>The instrument: sealed discovery under a human neutral</h3>
+      <p>Sealed Accord is not software you install. It is a <b>procedure you adopt</b>. Practically, that
+      means a structured instrument for multi-party negotiation in which the parties and their neutral agree,
+      before anything is disclosed, on the complete shape of the proceeding.</p>
+      <p>Before the first number moves or the first position is advanced, every party and the neutral sign on
+      to a single, frozen specification of the entire procedure. Phases, rules of disclosure, the vocabulary
+      of terms that will govern non-numeric conditions, the method for computing outcomes, the scope of the
+      neutral's authority: every one of these is fixed in advance, written down as one document everyone can
+      check against rather than take on faith. What the parties sign is not a contract about outcomes. It is a
+      <b>contract about the shape of the proceeding itself.</b> The procedure cannot quietly change mid-matter.
+      If anyone tried, the deviation from what was agreed would become immediately and independently
+      verifiable, without requiring anyone's word for it.</p>
+      <p>Within this framework, the mechanism introduces what might be called <b>sealed discovery</b>. Each
+      party submits its true position: numeric reservation values, the conditions that are genuine
+      deal-makers and walk-aways, preferences over non-numeric terms. None of it goes to a counterparty. None
+      of it goes to the mediator. It goes only into a sealed space that computes but does not disclose, a
+      space no person, including the mediator, can see into. Think of it as a vault with no windows in any
+      direction.</p>
+      <p>Inside this vault, the feasibility tests run: does a zone of agreement exist across all parties
+      simultaneously? Which accord packages satisfy everyone's hard constraints? What is the stable outcome,
+      given the adoption rule the parties chose at the outset?</p>
+      <div class="keyblock"><span class="keyblock-tab">What exits the sealed space</span>
+        <p>Only <b>signals</b>. Not positions. Never positions.</p>
+        <p>The signal is simply this: <i>a zone of agreement is possible</i>, or <i>not yet</i>. When
+        agreement is possible, the computation selects from among the stable outcomes, meaning packages that
+        no coalition of parties would all simultaneously prefer to abandon, using a rule the parties chose
+        before anyone submitted anything.</p>
+      </div>
+      <p>A skeptical reader will already have an objection forming. Doesn't reducing a negotiation to
+      feasibility tests and yes-or-not-yet signals drain the room of the very things that make skilled
+      mediation an art rather than an algorithm: the read of a delegation's true appetite, the instinct for
+      when a pause serves better than a proposal, the sense of what a party needs in order to save face while
+      still conceding?</p>
+      <div class="pq"><p>Mapping the visible spectrum, learning exactly where violet ends and blue begins,
+      does nothing to diminish anyone's ability to stand outside after a storm and feel the awe of an actual
+      rainbow.</p></div>
+      <p>The honest answer is that the instrument does close to the opposite of what that objection fears. The
+      measurement and the wonder simply operate at different registers; naming the frequencies does not
+      compete with experiencing the color. If anything, it protects the experience from being crowded out by
+      noise, guesswork, and things that only resemble it.</p>
+      <p>Sealed Accord's sealed computation resolves exactly one narrow question, and resolves it with
+      certainty: given what every party has privately committed to requiring or refusing, does a mutually
+      survivable path exist, and if so, which one is stable? That is the spectrum being mapped, the coarse
+      geometry of what is jointly possible. It has nothing to say, and is deliberately built to have nothing
+      to say, about how a delegation should be approached, when silence matters more than a proposal, what
+      tone repairs a relationship that a raw number would rupture, or how a mediator reads a room in the
+      seconds before anyone speaks. Those judgments remain entirely the neutral's domain, exercised now on a
+      canvas the instrument has cleared of one very specific kind of noise: parties calculating what they can
+      safely reveal instead of saying what they actually need. The art of bringing people to agreement is not
+      only preserved by this. It becomes more visible, because it is no longer competing for space with
+      guesswork the instrument has already resolved.</p>
+      <p><b>The neutral's role is transformed, not diminished.</b> The mediator or arbitrator presides
+      throughout. They structure the dispute, designate the narrow questions that require judgment, commission
+      fact-finding, and retain every act that cannot be automated: adoption of the case structure, release of
+      phases, the decision on impasse if negotiation fails. What the neutral may see, and when, is itself
+      built into the procedure they agreed to at the outset. The instrument serves the neutral. It does not
+      replace them.</p>
+      <p>What changes is that the neutral no longer has to navigate the full information asymmetry alone. The
+      sealed computation tells the neutral what the parties together can achieve, while telling no one,
+      including the neutral, what any single party alone holds.</p>
+      <p class="kv">The mechanism also prices bluffing. A party that manufactures impasse, whether by
+      inflating its walk-away conditions or by hardening its positions unreasonably, finds itself routed to
+      final-offer arbitration, where the neutral selects one party's sealed last position in its entirety.
+      Manufactured impasse becomes expensive. Honest convergence becomes the dominant posture, not as a
+      matter of faith but as a structural incentive.</p>
+    </div>
+
+    <div class="card"><h3>The deeper innovation: procedures as living intellectual property</h3>
+      <p>Here is where the instrument points toward something larger than any single negotiation.</p>
+      <p>The procedure that governed a particular multi-party matter (its phases, its term vocabulary, its
+      method for handling walk-away conditions, its impasse protocol, the scope it granted the neutral) is not
+      buried in a filing cabinet when the matter closes. It survives as a signed, versioned record with its
+      own history: who authored it, when, what it was adapted from, and what outcomes it has produced across
+      every matter that used it.</p>
+      <div class="pq"><p>A compounding, private, longitudinal evidence base for procedural design itself.</p></div>
+      <p>Today, when a practitioner develops a new approach, perhaps a novel method for handling sequential
+      disclosure in multi-party settings, an early-ruling protocol that surfaces structural blockers before
+      calendar time is burned, or a term vocabulary that reduces impasse rates in a specific claim class, that
+      technique lives only in their memory and their case notes. It cannot be measured against alternatives.
+      It cannot be safely shared without surrendering the competitive advantage that mastery provides. And it
+      produces no outcome data beyond what the practitioner happens to remember or what clients report
+      informally.</p>
+      <p>Under the Sealed Accord model, every time a procedure runs it emits process statistics: round counts,
+      convergence rates, time to signal, outcome rates. Never party data: no positions, no reservation values,
+      no identities, unless the parties themselves choose to disclose them. What gets measured is the
+      <b>procedure's performance</b>, aggregated across every matter that used it.</p>
+      <p>Over time this creates the empirical substrate that negotiation practice has never had:</p>
+      <ul class="ov-lede-points">
+        <li>Which procedural designs converge faster in multi-party settings with specific claim profiles?</li>
+        <li>Which early-ruling protocols surface structural blockers most efficiently, and which merely add
+        time?</li>
+        <li>How does a procedure's performance shift across different jurisdictional contexts and neutral
+        cultures?</li>
+        <li>When a procedure is adapted for a different domain, does the adaptation improve on the original?</li>
+      </ul>
+      <p>The practitioner who authors a procedure that demonstrably performs better earns a direct economic
+      stake in its use. That stake comes not from selling methodology, but from the procedure's own execution:
+      a small fee, built into the procedure itself, flows automatically to its authors and to the forum that
+      reviewed and endorsed it, at the moment a matter concludes. The economics are aligned with matters
+      actually closing.</p>
+      <p><b>The cross-domain dimension.</b> The same structural problem appears across domains that rarely
+      talk to each other: multiple parties, private constraint surfaces, and joint feasibility discovery under
+      information asymmetry. It shows up in inter-institutional disputes in commerce, in multilateral resource
+      allocation under political constraint, in consortium wind-downs, regulatory remediation, and
+      industry-fund allocations. The underlying shape of the problem is identical across all of them; what
+      differs by domain is the vocabulary of terms, the legal boundaries on what can be asked for, and the
+      range of outcomes considered typical.</p>
+      <p>A procedure developed in one context that performs exceptionally well, whether measured in
+      convergence speed, in the stability of the resulting accord, or in how rarely parties reopen an outcome
+      once reached, can be examined by a practitioner in a different domain, adapted with appropriate
+      parameters, and studied comparatively. If the adaptation performs differently, that comparison is
+      visible in its lineage. If it performs better, the improvement travels back toward the original through
+      citation, not through merger. And if it quietly weakens the procedure, say by narrowing the neutral's
+      scope or loosening the constraints that made it credible in the first place, that weakening shows up in
+      the precise comparison between versions, not only in whoever happens to be telling the story.</p>
+      <div class="keyblock"><span class="keyblock-tab">The procedure is the unit of analysis</span>
+        <p>The adaptation is the experiment. The outcome record is the data.</p>
+        <p>This is, in effect, the beginning of a <b>scientific literature for negotiation procedure design</b>.
+        It would be conducted entirely privately, across matters that participants would never discuss in any
+        other context, producing evidence that no individual practitioner's case notes could ever generate on
+        their own.</p>
+      </div>
+      <p class="kv">New types of negotiation become possible that were simply impractical before. Procedures
+      can be designed specifically for multi-stakeholder settings where no single party holds enough
+      information to even propose terms, so that discovering what is collectively achievable becomes the
+      first act of cooperation rather than a precondition for it. Procedures can incorporate early rulings
+      that surface fundamental blockers before calendar time and political capital are spent chasing
+      something that was never viable. And procedures can be tuned for different trust environments, different
+      time constraints, different mixes of numeric and non-numeric terms, with the performance of each
+      variation compared empirically across cases in which none of the underlying matter data is ever shared.</p>
+    </div>
+
+    <div class="card"><h3>What this adds to the practitioner's toolkit</h3>
+      <p>Sealed Accord creates a new kind of <b>commitment device</b>: one that makes honesty safe, makes
+      procedural integrity something you can check rather than take on trust, keeps the neutral's authority
+      visible and protected by the procedure's own structure, and turns the knowledge embedded in effective
+      procedures into a form of intellectual property that is publicly attributed, privately studied, and
+      economically rewarded.</p>
+      <p>The <b>neutral</b> who has spent a career developing judgment about which procedural approaches work
+      in which contexts can now put that judgment into a durable, attributed form, and earn from it in
+      proportion to the value it generates, without ever disclosing the underlying matter data that a
+      conventional case study or article would require.</p>
+      <p>The <b>forum</b> that has accumulated process knowledge across hundreds of matters can build that
+      knowledge into a procedure template, put it through genuine empirical comparison, and refine it as
+      evidence accumulates, all without ever publishing what any party disclosed or what any neutral decided.</p>
+      <p>The <b>parties</b> who negotiate under the instrument can do so knowing several things at once: that
+      their true positions will never be seen by anyone, that the procedure cannot be quietly modified to
+      favor a counterparty's interests, that the neutral's authority is preserved by the procedure's own
+      structure and not by professional norms alone, and that whatever agreement they do reach is stable in
+      the precise sense that no subset of them would all prefer to deviate from it.</p>
+      <div class="pq"><p>The instrument does not replace judgment. It creates the conditions under which
+      judgment finally has something honest to work with.</p></div>
+      <p class="narrative-signoff">Continue to the <button type="button" class="demo-link" data-page="exec">Executive Overview →</button></p>
+    </div>`;
   },
 
   viewExecOverview() {
@@ -1169,7 +1375,7 @@ const App = {
 
     <div class="card"><h3>Where to go next</h3>
       <p>${this.demoLink()} walks the full protocol at your own pace with Back/Next and clickable phase pills; switch <b>Viewing as</b>
-      to compare role visibility. The <b>Technical overview</b> explains the three-substrate architecture (Pathways
+      to compare role visibility. The <b>Technical Architecture</b> tab explains the three-substrate design (Pathways
       orchestration, Lit confidential execution, Aqua attestation) and exactly which claims the running code
       proves today. Behind both sits a sealed, offline-verifiable collaboration bundle carrying the full
       partnership thesis, the protocol specifications (including the sealed term-sheet and legality-screen

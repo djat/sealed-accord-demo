@@ -356,6 +356,43 @@ table.tbl code { word-break: break-word; }
 .ov-q { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); }
 @media (max-width: 1200px) { .dev-panel { width: 400px; } .two-col, .ov-grid { grid-template-columns: 1fr; } }
 
+/* Project Narrative page: pull-quotes + key blocks in the executive-summary register. */
+.narrative-cover { text-align: center; padding: 4px 0 18px; }
+.narrative-kicker { margin: 0 0 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.narrative-cover h2 { margin: 0 0 8px; font-size: 26px; }
+.narrative-cover .sub { margin: 0 auto; max-width: 640px; font-size: 15px; color: var(--accent2); font-weight: 600; }
+.narrative-rule { border: 0; border-top: 1px solid var(--gold, #c08a2e); opacity: .55; margin: 16px auto; max-width: 640px; }
+.narrative-byline { color: var(--muted); font-size: 12.5px; }
+.narrative-dl { margin-top: 10px; font-size: 12.5px; }
+.narrative-dl a { color: var(--accent2); font-weight: 600; }
+
+.pq {
+  background: var(--panel2); border-left: 3.5px solid var(--accent2);
+  border-radius: 0 8px 8px 0; padding: 12px 18px; margin: 16px 0;
+  font-style: italic; color: var(--text); font-size: 15.5px; line-height: 1.5;
+}
+.pq p { margin: 0; }
+
+.keyblock {
+  position: relative; background: var(--panel2); border: 1.5px solid var(--accent);
+  border-radius: 10px; padding: 18px 16px 14px; margin: 22px 0 16px;
+}
+.keyblock-tab {
+  position: absolute; top: -13px; left: 14px; background: var(--accent);
+  color: var(--accent-contrast); font-family: var(--mono); font-size: 10.5px;
+  font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 6px;
+}
+.keyblock p { margin: 4px 0; }
+.keyblock p:first-child { margin-top: 8px; }
+
+.narrative-signoff { text-align: center; color: var(--muted); font-size: 13.5px; font-style: italic; margin: 4px 0 0; }
+@media (max-width: 680px) {
+  .narrative-cover h2 { font-size: 21px; }
+  .pq { padding: 10px 14px; font-size: 14.5px; }
+  .keyblock { padding: 16px 14px 12px; }
+}
+
 /* Mobile: stack narrative tables, tighten chrome, scroll wide data tables. */
 @media (max-width: 680px) {
   .topbar { padding: 12px 14px; gap: 12px; }
